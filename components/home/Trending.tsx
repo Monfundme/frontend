@@ -1,12 +1,12 @@
 import Link from "next/link";
-import TrendingCard from "./TrendingCard";
+import TrendingCard from "../general/CampaignCard";
 
 const Trending = () => {
 	return (
 		<div className="p-2 lg:p-4 ">
 			<main className=" width_to_center mt-[50px] ">
 				<h2 className=" text-2xl">Popular campaigns</h2>
-				<section className=" grid grid-cols-[repeat(auto-fill,_minmax(300,_1fr))] gap-5 my-5 ">
+				<section className=" grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5 my-5 ">
 					{[1, 2, 3].map((i) => (
 						<TrendingCard key={i} />
 					))}
