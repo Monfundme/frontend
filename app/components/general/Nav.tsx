@@ -6,7 +6,7 @@ const Nav = () => {
     <nav className="fixed top-0 w-full p-2 lg:p-4 bg-background z-50 shadow-xl ">
       <main className="flex items-center justify-between gap-2 width_to_center ">
         <Link
-          href="campaigns"
+          href="/campaigns"
           className="flex items-center gap-1 hover:bg-l_yellow px-4 py-2 rounded-md"
         >
           <Search />

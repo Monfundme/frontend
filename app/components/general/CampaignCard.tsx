@@ -5,7 +5,7 @@ import { Wallet } from "lucide-react";
 const CampaignCard = ({ isTrending }: { isTrending: boolean }) => {
   return (
     <Link
-      href="#"
+      href={`/campaigns/${10}`}
       className={` ${
         isTrending ? "h-[500px]" : "h-[300px]"
       } flex flex-col shadow-xl rounded-t-xl group border-[0.5px] border-slate-200 `}

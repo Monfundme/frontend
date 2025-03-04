@@ -1,12 +1,12 @@
 import { categoryData } from "@/constant";
-import { categoryDataType } from "@/types";
+import { CategoryDataType } from "@/types";
 
 const HelpCategory = () => {
   return (
     <main className="my-[50px] width_to_center p-2 lg:p-4">
       <h2 className="text-center font-semibold text-[50px] ">Monfund Helps</h2>
       <main className=" grid grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))]  ">
-        {categoryData.map((category: categoryDataType) => (
+        {categoryData.map((category: CategoryDataType) => (
           <div
             key={category.id}
             className=" grid place-content-center gap-2 text-center group "
