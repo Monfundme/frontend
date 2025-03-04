@@ -16,6 +16,7 @@ const FormInputs = ({ id, name, type, placeholder }: FormInputInterface) => {
       </p>
       {type === "textarea" ? (
         <textarea
+          name={id}
           required
           placeholder={placeholder}
           className="px-4 py-2 w-full border border-slate-300 rounded-lg mt-1 h-[100px] "
@@ -23,6 +24,7 @@ const FormInputs = ({ id, name, type, placeholder }: FormInputInterface) => {
       ) : (
         <input
           required
+          name={id}
           type={type}
           placeholder={placeholder}
           className={`px-4 py-2 w-full border border-slate-300 rounded-lg mt-1`}

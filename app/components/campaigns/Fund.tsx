@@ -36,7 +36,7 @@ const Fund = () => {
 
           <button
             type="button"
-            className={`font-epilogue font-semibold text-[16px] leading-[26px] shadow-md text-white bg-accent-default min-h-[52px] px-4 rounded-[10px] hover:bg-[rgb(196,67,219)] transition-colors duration-150 ease-linear `}
+            className={`font-epilogue font-semibold text-[16px] leading-[26px] shadow-md text-white  min-h-[52px] px-4 rounded-[10px] accent_with_fade `}
             onClick={handleDonate}
           >
             Fund campaign

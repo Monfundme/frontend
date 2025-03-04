@@ -1,5 +1,7 @@
 import { CategoryDataType, Campaign } from "@/types";
 
+export const monfund_CA = "0xc4DD079465B97615887D92895923801C90fCDe6d";
+
 export const categoryData: CategoryDataType[] = [
   {
     id: "communities",
@@ -143,7 +145,32 @@ export const data: Campaign[] = [
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima tenetur nulla corporis quaerat illo aut, excepturi fuga exercitationem, quas mollitia magnam. Alias at consequuntur dolore adipisci maxime saepe debitis hic.Voluptates modi, culpa atque possimus rerum ipsum dignissimos cumque distinctio, laborum odio voluptatum eum. Fugiat eligendi tempora delectus ratione, vel eaque quidem itaque rerum quas deleniti dolores quae, inventore harum?Illo impedit illum soluta exercitationem nemo est totam accusantium corrupti consequatur fugit ipsa, iure, atque tempora ex sunt natus? Corrupti veniam provident veritatis dolorem commodi, velit nam enim similique architecto?Iure eum necessitatibus inventore voluptates ab aliquam fugit, qui dignissimos rem repellat maiores cupiditate perspiciatis repudiandae doloremque. Velit totam assumenda eligendi? Sunt placeat quidem molestias nesciunt eius quam maxime vitae.Minus nobis placeat quae architecto. Facilis blanditiis culpa fugiat exercitationem impedit! Provident veritatis illo asperiores ullam! Facilis tempore quasi, deleniti, obcaecati fugit esse soluta ratione ab magni officiis quis quibusdam!Enim voluptates maiores natus velit. Molestiae molestias odio suscipit. Laudantium amet neque optio esse hic, laborum nemo quia eligendi laboriosam sed eius impedit accusantium alias harum tenetur nisi. Molestias, sunt?Facilis excepturi mollitia consectetur nesciunt in voluptatibus veniam quaerat libero commodi eligendi ",
     donations: [],
-    donators: [],
+    donators: [
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+      "0xF519363b26ab80f22C953e27DB1E1b9E053d1A34",
+    ],
     image:
       "https://www.becomingminimalist.com/wp-content/uploads/2022/05/help-others.jpg",
     owner: "0xF6A1B7C5aD5C1Ae4b7F9D91B4A1B7C5aE6D1F2E3",

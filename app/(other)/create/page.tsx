@@ -1,10 +1,47 @@
+"use client";
 import { FormInputs } from "@/components/create";
+import { useAccount, useWriteContract } from "wagmi";
+import monfund_ABI from "@/components/web3/abi/monfund_ABI";
+import { monfund_CA } from "@/constant";
+import { config } from "@/components/web3/config";
+import { waitForTransactionReceipt } from "viem/actions";
+import convert from "@/utils/convertData";
 
 const page = () => {
+  const { writeContractAsync } = useWriteContract();
+  const { address } = useAccount();
+
+  const _config: any = config;
+
+  const submit = async (data: FormData) => {
+    try {
+      const objData = Object.fromEntries(data);
+
+      const targetDate = objData.targetDate;
+      const hash = await writeContractAsync({
+        abi: monfund_ABI,
+        address: monfund_CA as `0x${string}`,
+        functionName: "createCampaign",
+        args: [
+          address,
+          objData.title,
+          objData.description,
+          Number(objData.targetAmount),
+          convert(objData.targetDate as string),
+          objData.imageURL,
+        ],
+      });
+      const res = await waitForTransactionReceipt(_config, { hash });
+      console.log("transaction --- ", res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className=" py-[125px] ">
       <form
-        action="#"
+        action={submit}
         className="shadow-xl bg-slate-100 border-[0.5px] border-slate-200 flex flex-col gap-3 p-5 max-w-[800px] mx-auto "
       >
         <h2 className="text-center text-2xl font-semibold ">
