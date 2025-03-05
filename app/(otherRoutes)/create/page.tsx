@@ -1,70 +1,27 @@
 "use client";
-import { useTransition } from "react";
 import { FormInputs } from "@/components/create";
 import { useAccount } from "wagmi";
-import { waitForTransactionReceipt, writeContract } from "wagmi/actions";
-import monfund_ABI from "@/components/web3/abi/monfund_ABI";
-import { monfund_CA } from "@/constant";
-import { config } from "@/components/web3/config";
 import convert from "@/utils/convertDate";
-import { toast, Id } from "react-toastify";
 import CustomToastConatainer from "@/components/general/CustomToastConatainer";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useWrite } from "@/utils/hooks";
 
-const page = () => {
-	const [isPending, startTransition] = useTransition();
+const Page = () => {
+	const { isPending, write } = useWrite();
+
 	const { isConnected } = useAccount();
-	const { openConnectModal } = useConnectModal();
-
-	let toastId: Id;
-	const { address } = useAccount();
-	const _config: any = config;
 
 	const submit = async (data: FormData) => {
-		startTransition(async () => {
-			console.log("approve wallet transaction.");
-			toastId = toast.info("Approve wallet transaction ");
-			try {
-				const objData = Object.fromEntries(data);
-				const hash = await writeContract(config, {
-					abi: monfund_ABI,
-					address: monfund_CA as `0x${string}`,
-					functionName: "createCampaign",
-					args: [
-						address,
-						objData.title,
-						objData.description,
-						Number(objData.targetAmount),
-						convert(objData.targetDate as string),
-						objData.imageURL,
-					],
-				});
+		const objData = Object.fromEntries(data);
 
-				console.log("Waiting for tx to be mined", hash);
-				toastId = toast.loading("Transaction pending ...");
+		const writeData = {
+			title: objData.title as string,
+			description: objData.description as string,
+			target: Number(objData.target),
+			deadline: convert(objData.deadline as string),
+			image: objData.image as string,
+		};
 
-				const res = await waitForTransactionReceipt(_config, { hash });
-				console.log("transaction --- ", res);
-
-				console.log("Transaction successful!");
-				toast.update(toastId, {
-					render: "Transaction successful!",
-					type: "success",
-					isLoading: false,
-					autoClose: 2000,
-				});
-			} catch (error) {
-				console.error("TRANSACTION ERROR!", error);
-				toastId
-					? toast.update(toastId, {
-							render: "Error in transaction!",
-							type: "error",
-							isLoading: false,
-							autoClose: 2000,
-					  })
-					: toast.error("Error in transaction!");
-			}
-		});
+		write(writeData);
 	};
 
 	return (
@@ -107,13 +64,13 @@ const page = () => {
 
 				<div className=" grid grid-cols-2 gap-7 ">
 					<FormInputs
-						id="targetAmount"
+						id="target"
 						placeholder="e.g. 1,000,000"
 						name="Target Amount"
 						type="number"
 					/>
 					<FormInputs
-						id="targetDate"
+						id="deadline"
 						placeholder="e.g. dd/mm/yy"
 						name="Target Date"
 						type="date"
@@ -122,7 +79,7 @@ const page = () => {
 
 				<div className=" ">
 					<FormInputs
-						id="imageURL"
+						id="image"
 						placeholder="image url for your campaign"
 						name="Image URL"
 						type="url"
@@ -153,4 +110,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;
