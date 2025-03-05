@@ -13,12 +13,12 @@ const Email = () => {
 		<main className=" p-4 bg-gradient-to-br from-[#8a329b] to-[#2e0936] text-white grid grid-cols-[70%_30%] relative">
 			<section className=" my-[50px] lg:my-[150px] pl-10">
 				<p className="max-w-[750px] ">
-					Monfundme is a Web3 fundraising app built on the Monad blockchain,
-					aiming to change how funds are raised and managed. It uses
+					Monfundme is a Web3 fundraising platform built on the Monad
+					blockchain, aiming to change how funds are raised and managed. Using
 					blockchain&apos;s decentralized features to provide transparent,
-					secure, and efficient crowdfunding. Users can start or support
-					fundraising campaigns with cryptocurrencies and track the funds in
-					real-time.
+					secure, and efficient crowdfunding; users can start or support
+					fundraising campaigns with cryptocurrencies and track funds movements
+					in real-time.
 				</p>
 
 				<h2 className={`text-[30px] mt-7 ${roboto.className} font-semibold `}>

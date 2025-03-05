@@ -4,6 +4,8 @@ export interface CategoryDataType {
 	icon: string;
 }
 
+export type WriteType = "createCampaign" | "donateWithMON";
+
 export type InputIdTypes =
 	| "name"
 	| "title"
@@ -29,4 +31,9 @@ export interface Campaign extends CampaignInput {
 	_id: number;
 }
 
-export type WriteDataType = Campaign & string;
+export interface DonateInput {
+	id: number;
+	amount: number;
+}
+
+export type WriteDataType = CampaignInput | DonateInput;

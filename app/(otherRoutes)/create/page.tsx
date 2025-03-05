@@ -4,10 +4,10 @@ import { useAccount } from "wagmi";
 import convert from "@/utils/convertDate";
 import CustomToastConatainer from "@/components/general/CustomToastConatainer";
 import { useWrite } from "@/utils/hooks";
+import { CampaignInput } from "@/types";
 
 const Page = () => {
-	const { isPending, write } = useWrite();
-
+	const { isPending, write } = useWrite("createCampaign");
 	const { isConnected } = useAccount();
 
 	const submit = async (data: FormData) => {
