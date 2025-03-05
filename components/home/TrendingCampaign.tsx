@@ -1,7 +1,7 @@
 "use client";
 import { CampaignCard } from "../general";
 import { Campaign } from "@/types";
-import { useGetCampaigns } from "@/utils/hooks";
+import useGetCampaigns from "@/utils/hooks/useGetCampaigns";
 
 const TrendingCampaign = () => {
 	const campaigns = useGetCampaigns();

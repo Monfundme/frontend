@@ -1,6 +1,6 @@
-import { CategoryDataType, Campaign } from "@/types";
+import { CategoryDataType } from "@/types";
 
-export const monfund_CA = "0xAf7a803a319aF82a7756b661050002dB3494d34D";
+export const monfund_CA = "0x5a68abB3e7324324Df0cc0c55e5BC37061fB1880";
 
 export const categoryData: CategoryDataType[] = [
 	{

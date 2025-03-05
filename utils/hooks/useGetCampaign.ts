@@ -1,6 +1,6 @@
 "use client";
-import { config } from "@/components/web3/config";
-import monfund_ABI from "@/components/web3/abi/monfund_ABI";
+import { config } from "@/web3/config";
+import monfund_ABI from "@/web3/abi/monfund_ABI";
 import { monfund_CA } from "@/constant";
 import { useEffect } from "react";
 import { useReadContract, useBlockNumber } from "wagmi";

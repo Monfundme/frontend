@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/general";
-import Web3Provider from "@/components/web3/config";
+import Web3Provider from "@/web3/config";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	title: "Monfudme",
-	description: "Crowdfundig just got easier",
+	description: "Crowdfunding just got easier",
 };
 
 export default function RootLayout({

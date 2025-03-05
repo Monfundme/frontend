@@ -1,6 +1,6 @@
 "use client";
 import { useAccount, useSwitchChain } from "wagmi";
-import { config } from "@/components/web3/config";
+import { config } from "@/web3/config";
 
 const useCheckChain = () => {
 	const { chainId } = useAccount();
