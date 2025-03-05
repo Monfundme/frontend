@@ -18,11 +18,7 @@ body {
 	.width_to_center {
 		@apply max-w-[1200px] mx-auto;
 	}
-<<<<<<< HEAD
-}
-=======
 	.accent_with_fade {
 		@apply bg-accent-default hover:bg-[rgb(196,67,219)] transition-colors duration-150 ease-linear;
 	}
 }
->>>>>>> 47529f7356aa35aeb06d83c094366cfc4c016a7a
