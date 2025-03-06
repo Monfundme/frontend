@@ -1,6 +1,6 @@
 import { CategoryDataType } from "@/types";
 
-export const monfund_CA = "0x5a68abB3e7324324Df0cc0c55e5BC37061fB1880";
+export const monfund_CA = "0xbe05AF30618EC05220fAdAD2193762d63ACb0742";
 
 export const categoryData: CategoryDataType[] = [
 	{

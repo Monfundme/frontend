@@ -15,15 +15,15 @@ export type InputIdTypes =
 export interface CampaignInput {
 	deadline: number;
 	image: string;
-	target: number;
+	target: bigint;
 	title: string;
 	description: string;
 	function: "createCampaign";
 }
 
 export interface Campaign extends CampaignInput {
-	amountCollected: number;
-	donations: number[];
+	amountCollected: bigint;
+	donations: bigint[];
 	donators: string[];
 	owner: string;
 	title: string;
@@ -32,7 +32,7 @@ export interface Campaign extends CampaignInput {
 
 export interface DonateInput {
 	id: number;
-	amount: number;
+	amount: bigint;
 	function: "donateWithMON";
 }
 

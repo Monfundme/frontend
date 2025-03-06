@@ -1,4 +1,4 @@
-import { formatEther } from "viem";
+import { formatEther, parseEther } from "viem";
 
 interface ObjData {
 	targetDate: string | number | Date;
@@ -20,8 +20,6 @@ export const getPercentage = (
 	targetAmount: bigint,
 	totalDonated: bigint
 ): number => {
-	if (!targetAmount || !totalDonated) return 0.0;
-
 	const f_targetAmount = Number(formatEther(targetAmount));
 	const f_totalDonated = Number(formatEther(totalDonated));
 	const percentage = (f_totalDonated / f_targetAmount) * 100;

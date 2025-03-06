@@ -2,12 +2,12 @@
 import { useState, useTransition } from "react";
 import { useAccount } from "wagmi";
 import { waitForTransactionReceipt, writeContract } from "wagmi/actions";
-import monfund_ABI from "@/web3/abi/monfund_ABI";
+import monfund_ABI from "@/components/web3/abi/monfund_ABI";
 import { monfund_CA } from "@/constant";
-import { config } from "@/web3/config";
+import { config } from "@/components/web3/config";
 import { toast, Id } from "react-toastify";
 import { WriteDataType } from "@/types";
-import { decodeEventLog } from "viem";
+import { parseEther } from "viem";
 
 type Status = "success" | "reverted" | undefined;
 
@@ -15,11 +15,9 @@ const useWrite = (): {
 	isPending: boolean;
 	write: (writeData: WriteDataType, callback?: (arg?: any) => void) => void;
 	_status: Status;
-	id: string;
 } => {
 	const [isPending, startTransition] = useTransition();
 	const [_status, setStatus] = useState<Status>();
-	const [id, setId] = useState<string>("");
 	const { address } = useAccount();
 
 	let toastId: Id;
@@ -31,7 +29,9 @@ const useWrite = (): {
 		callback?: (arg?: boolean) => void
 	) => {
 		startTransition(async () => {
+			console.log("approve wallet transaction.");
 			toastId = toast.info("Approve wallet transaction ");
+
 			try {
 				const hash =
 					writeData.function === "createCampaign"
@@ -41,7 +41,6 @@ const useWrite = (): {
 								functionName: writeData.function,
 								args: [
 									address,
-									writeData.name,
 									writeData.title,
 									writeData.description,
 									writeData.target,
@@ -57,29 +56,26 @@ const useWrite = (): {
 								args: [writeData.id, writeData.amount],
 						  });
 
+				console.log("Waiting for tx to be mined", hash);
 				toastId = toast.loading("Transaction pending ...");
 
-				const { status, logs } = await waitForTransactionReceipt(_config, {
-					hash,
-					timeout: 30 * 1_000,
-				});
+				const { status, transactionHash } = await waitForTransactionReceipt(
+					_config,
+					{
+						hash,
+						timeout: 30 * 1_000,
+					}
+				);
 				setStatus(status);
+				console.log("transaction --- ", transactionHash);
 
-				const decodedEventLog: any = decodeEventLog({
-					abi: monfund_ABI,
-					data: logs[0].data,
-					topics: logs[0].topics,
-				});
-
-				setId(decodedEventLog.args.campaignId);
-
+				console.log("Transaction successful!");
 				toast.update(toastId, {
 					render: "Transaction successful!",
 					type: "success",
 					isLoading: false,
 					autoClose: 2000,
 				});
-
 				callback && callback(true);
 			} catch (error: any) {
 				console.error("TRANSACTION ERROR!", error);
@@ -98,7 +94,7 @@ const useWrite = (): {
 		});
 	};
 
-	return { isPending, write, _status, id };
+	return { isPending, write, _status };
 };
 
 export default useWrite;
