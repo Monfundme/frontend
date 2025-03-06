@@ -5,13 +5,12 @@ import { useGetOneCampaign } from "@/utils/hooks";
 import { Wallet } from "lucide-react";
 import Fund from "../Fund";
 import { formatEther } from "viem";
+import { getPercentage } from "@/utils/helpers";
 
 const Main = ({ id }: { id: string }) => {
   const { campaign, isPending, refetch } = useGetOneCampaign(id);
   const dayConvert = 24 * 60 * 60;
   const _campaign = campaign as Campaign;
-
-  console.log("campaign----", campaign);
 
   if (isPending) {
     return <div className=" grid place-content-center h-dvh ">Loading...</div>;
@@ -23,6 +22,13 @@ const Main = ({ id }: { id: string }) => {
         Can&apos;t find campaign
       </div>
     );
+
+  const percentage: number = getPercentage(
+    _campaign.target,
+    _campaign.amountCollected
+  );
+
+  console.log("campaign----", campaign);
 
   return (
     <main className=" max-w-[1200px] mx-auto ">
@@ -36,8 +42,17 @@ const Main = ({ id }: { id: string }) => {
               className="w-full h-[410px] object-cover rounded-xl transition-all hover:scale-110 duration-150 ease-linear "
             />
           </div>
+
           <div className="relative w-full h-[5px] bg-gray-300 mt-2">
-            <div className="absolute h-full bg-accent-default w-[84%]"></div>
+            <div
+              className="absolute h-full bg-accent-default"
+              style={{
+                width: `${percentage.toFixed(2)}%`,
+              }}
+            ></div>
+            <div className="absolute bottom-0 right-0 mt-[20px] text-accent-default font-bold">
+              <p>{`${percentage.toFixed(2)} %`}</p>
+            </div>
           </div>
         </div>
 

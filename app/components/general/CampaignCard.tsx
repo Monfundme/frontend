@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Wallet } from "lucide-react";
 import { Campaign } from "@/types";
 import { formatEther } from "viem";
+import { getPercentage } from "@/utils/helpers";
 
 const CampaignCard = ({
   campaign,
@@ -11,6 +12,11 @@ const CampaignCard = ({
   campaign: Campaign;
   isTrending: boolean;
 }) => {
+  const percentage: number = getPercentage(
+    campaign.target,
+    campaign.amountCollected
+  );
+
   return (
     <Link
       href={`/campaigns/${campaign._id}`}
@@ -46,7 +52,12 @@ const CampaignCard = ({
         )}
 
         <div className=" h-[5px] w-full mt-4 bg-gray-300 relative overflow-hidden">
-          <div className=" h-full absolute bg-accent-default top-0 left-0 z-10 w-[84%] "></div>
+          <div
+            className={` h-full absolute bg-accent-default top-0 left-0 z-10`}
+            style={{
+              width: `${percentage.toFixed(2)}%`,
+            }}
+          ></div>
         </div>
         <div
           className={` ${
@@ -57,7 +68,7 @@ const CampaignCard = ({
             {Number(formatEther(BigInt(campaign.amountCollected))).toFixed(2)}{" "}
             MON
           </p>
-          <p> 84% </p>
+          <p>{`${percentage.toFixed(2)} %`}</p>
         </div>
         <div className=" flex items-center gap-2 ">
           <div className=" p-2 bg-accent-default rounded-full">

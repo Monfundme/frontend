@@ -13,7 +13,7 @@ type Status = "success" | "reverted" | undefined;
 
 const useWrite = (): {
   isPending: boolean;
-  write: (writeData: WriteDataType) => void;
+  write: (writeData: WriteDataType, callback?: (arg?: any) => void) => void;
   _status: Status;
 } => {
   const [isPending, startTransition] = useTransition();
@@ -24,7 +24,10 @@ const useWrite = (): {
 
   const _config: any = config;
 
-  const write = (writeData: WriteDataType) => {
+  const write = (
+    writeData: WriteDataType,
+    callback?: (arg?: boolean) => void
+  ) => {
     startTransition(async () => {
       console.log("approve wallet transaction.");
       toastId = toast.info("Approve wallet transaction ");
@@ -73,6 +76,7 @@ const useWrite = (): {
           isLoading: false,
           autoClose: 2000,
         });
+        callback && callback(true);
       } catch (error: any) {
         console.error("TRANSACTION ERROR!", error);
         const errorMessage = error.shortMessage

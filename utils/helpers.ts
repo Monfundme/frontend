@@ -15,3 +15,13 @@ export const convertDate = (date: string): number => {
 
   return timestampInSeconds;
 };
+
+export const getPercentage = (
+  targetAmount: bigint,
+  totalDonated: bigint
+): number => {
+  const f_targetAmount = Number(formatEther(targetAmount));
+  const f_totalDonated = Number(formatEther(totalDonated));
+  const percentage = (f_totalDonated / f_targetAmount) * 100;
+  return percentage;
+};
