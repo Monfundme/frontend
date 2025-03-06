@@ -20,6 +20,7 @@ const Page = () => {
 		const objData = Object.fromEntries(data);
 
 		const writeData: CampaignInput = {
+			name: objData.name as string,
 			title: objData.title as string,
 			description: objData.description as string,
 			target: parseEther(objData.target as string),
