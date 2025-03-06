@@ -31,7 +31,7 @@ const CampaignCard = ({
 				<Image
 					src={campaign.image}
 					alt="camp_img"
-					className="group-hover:scale-105 transition-all  duration-150 ease-linear"
+					className="group-hover:scale-105 transition-all duration-300 ease-in-out "
 					fill
 					style={{ objectFit: "cover", objectPosition: "top" }}
 				/>

@@ -13,6 +13,7 @@ export type InputIdTypes =
 	| "image";
 
 export interface CampaignInput {
+	name: string;
 	deadline: number;
 	image: string;
 	target: bigint;
@@ -31,7 +32,7 @@ export interface Campaign extends CampaignInput {
 }
 
 export interface DonateInput {
-	id: number;
+	id: string;
 	amount: bigint;
 	function: "donateWithMON";
 }

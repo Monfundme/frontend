@@ -6,7 +6,7 @@ const ModalChildren = ({ id }: { id: string }) => {
 	const url = new URLSearchParams("");
 	url.append(
 		"text",
-		`🚨 Support My Campaign! 🚨 \n\nI’m raising funds on MonFundMe! 🌟 Your donation will go a long way. Click here to support: https://monfundme.vercel.app/campaigns/${id} \n\nEvery contribution counts. Thank you 🙌`
+		`🚨 Support My Campaign! 🚨 \n\nI’m raising funds on MonFundMe! 🌟 Your donation will go a long way. Click here to support: https://monfundme.com/campaigns/${id} \n\nEvery contribution counts. Thank you 🙌`
 	);
 	return (
 		<div className="grid place-content-end gap-4 p-4 text-center h-full w-full relative rounded-md">

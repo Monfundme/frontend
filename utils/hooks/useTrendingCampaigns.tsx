@@ -8,13 +8,14 @@ const useTrendingCampaigns = () => {
 	const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
 	const { campaign: campaign_1, isPending: isPending_1 } = useGetOneCampaign(
-		"0xcad98deba6a4282cd5ca7ea5"
+		"0x7308d26500a884070026d18e"
 	);
 	const { campaign: campaign_2, isPending: isPending_2 } = useGetOneCampaign(
-		"0x761966b49aa930cf633c481b"
+		"0x68a8c21aecab5c05117a21c0"
 	);
-	const { campaign: campaign_3, isPending: isPending_3 } =
-		useGetOneCampaign("2");
+	const { campaign: campaign_3, isPending: isPending_3 } = useGetOneCampaign(
+		"0xd66a6961e16c15ef22ee1282"
+	);
 
 	useEffect(() => {
 		if (!isPending_1 && !isPending_2 && !isPending_3) {

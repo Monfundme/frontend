@@ -1,20 +1,18 @@
 import { type Chain } from "viem";
 
-export const monadDevnet = {
-	id: 20143,
-	name: "Monad Devnet",
+export const monadTestnet = {
+	id: 10143,
+	name: "Monad Testnet",
 	nativeCurrency: { name: "DMON", symbol: "DMON", decimals: 18 },
 	rpcUrls: {
 		default: {
-			http: [
-				"https://rpc-devnet.monadinfra.com/rpc/3fe540e310bbb6ef0b9f16cd23073b0a",
-			],
+			http: ["https://testnet-rpc.monad.xyz/"],
 		},
 	},
 	blockExplorers: {
 		default: {
-			name: "Monad Scan",
-			url: "https://explorer.monad-devnet.devnet101.com/",
+			name: "Monadexplorer",
+			url: "https://testnet.monadexplorer.com/",
 		},
 	},
 } as const satisfies Chain;

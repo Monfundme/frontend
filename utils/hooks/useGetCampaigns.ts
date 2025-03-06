@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useReadContract, useBlockNumber } from "wagmi";
 import { Campaign } from "@/types";
 
-const useGetCampaigns = (lowerLimit: number = 0, upperLimit: number = 50) => {
+const useGetCampaigns = (lowerLimit: number = 0, upperLimit: number = 25) => {
 	const { data: blockNumber } = useBlockNumber({ watch: true });
 	const {
 		data: donations,

@@ -50,7 +50,7 @@ const Main = ({ id }: { id: string }) => {
 							src={image}
 							fetchPriority="high"
 							alt="campaign"
-							className="w-full h-[410px] object-cover rounded-xl transition-all hover:scale-110 duration-150 ease-linear "
+							className="w-full h-[410px] object-cover rounded-xl transition-all hover:scale-110 duration-300 ease-in-out "
 						/>
 					</div>
 

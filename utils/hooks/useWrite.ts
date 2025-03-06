@@ -2,22 +2,28 @@
 import { useState, useTransition } from "react";
 import { useAccount } from "wagmi";
 import { waitForTransactionReceipt, writeContract } from "wagmi/actions";
-import monfund_ABI from "@/components/web3/abi/monfund_ABI";
+import monfund_ABI from "@/web3/abi/monfund_ABI";
 import { monfund_CA } from "@/constant";
-import { config } from "@/components/web3/config";
+import { config } from "@/web3/config";
 import { toast, Id } from "react-toastify";
 import { WriteDataType } from "@/types";
-import { parseEther } from "viem";
+import { decodeEventLog } from "viem";
 
 type Status = "success" | "reverted" | undefined;
 
 const useWrite = (): {
 	isPending: boolean;
-	write: (writeData: WriteDataType, callback?: (arg?: any) => void) => void;
+	write: (
+		writeData: WriteDataType,
+		callback?: (arg?: any) => void,
+		clearFunction?: (arg: null) => void
+	) => void;
 	_status: Status;
+	id: string;
 } => {
 	const [isPending, startTransition] = useTransition();
 	const [_status, setStatus] = useState<Status>();
+	const [id, setId] = useState<string>("");
 	const { address } = useAccount();
 
 	let toastId: Id;
@@ -26,12 +32,11 @@ const useWrite = (): {
 
 	const write = (
 		writeData: WriteDataType,
-		callback?: (arg?: boolean) => void
+		callback?: (arg?: boolean) => void,
+		clearFunction?: (arg: null) => void
 	) => {
 		startTransition(async () => {
-			console.log("approve wallet transaction.");
 			toastId = toast.info("Approve wallet transaction ");
-
 			try {
 				const hash =
 					writeData.function === "createCampaign"
@@ -41,6 +46,7 @@ const useWrite = (): {
 								functionName: writeData.function,
 								args: [
 									address,
+									writeData.name,
 									writeData.title,
 									writeData.description,
 									writeData.target,
@@ -56,26 +62,29 @@ const useWrite = (): {
 								args: [writeData.id, writeData.amount],
 						  });
 
-				console.log("Waiting for tx to be mined", hash);
 				toastId = toast.loading("Transaction pending ...");
 
-				const { status, transactionHash } = await waitForTransactionReceipt(
-					_config,
-					{
-						hash,
-						timeout: 30 * 1_000,
-					}
-				);
+				const { status, logs } = await waitForTransactionReceipt(_config, {
+					hash,
+					timeout: 30 * 1_000,
+				});
 				setStatus(status);
-				console.log("transaction --- ", transactionHash);
 
-				console.log("Transaction successful!");
+				const decodedEventLog: any = decodeEventLog({
+					abi: monfund_ABI,
+					data: logs[0].data,
+					topics: logs[0].topics,
+				});
+
+				setId(decodedEventLog.args.campaignId);
+
 				toast.update(toastId, {
 					render: "Transaction successful!",
 					type: "success",
 					isLoading: false,
 					autoClose: 2000,
 				});
+
 				callback && callback(true);
 			} catch (error: any) {
 				console.error("TRANSACTION ERROR!", error);
@@ -90,11 +99,13 @@ const useWrite = (): {
 							autoClose: 2000,
 					  })
 					: toast.error("Error in transaction!");
+			} finally {
+				clearFunction && clearFunction(null);
 			}
 		});
 	};
 
-	return { isPending, write, _status };
+	return { isPending, write, _status, id };
 };
 
 export default useWrite;

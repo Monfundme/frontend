@@ -27,6 +27,13 @@ const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
 	}
 
 	const handleDonate = async () => {
+		if (!amount) {
+			toast.error("Input an amount", {
+				autoClose: 2000,
+			});
+			return;
+		}
+
 		if (parseEther(amount) > (bal?.value as bigint)) {
 			toast.error("Insufficient DMON", {
 				autoClose: 2000,
@@ -51,6 +58,8 @@ const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
 						src={"/thankYou.gif"}
 						alt="thank you"
 						fill
+						unoptimized
+						priority
 						className="rounded-lg"
 					/>
 				</Modal>
