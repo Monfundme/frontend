@@ -4,6 +4,7 @@ import CountBox from "../CountBox";
 import { useGetOneCampaign } from "@/utils/hooks";
 import { Wallet } from "lucide-react";
 import Fund from "../Fund";
+import { formatEther } from "viem";
 
 const Main = ({ id }: { id: string }) => {
   const { campaign, isPending, refetch } = useGetOneCampaign(id);
@@ -49,7 +50,9 @@ const Main = ({ id }: { id: string }) => {
           />
           <CountBox
             title={`Mon Raised `}
-            value={Number(_campaign.amountCollected).toLocaleString()}
+            value={Number(
+              formatEther(_campaign.amountCollected)
+            ).toLocaleString()}
           />
           <CountBox title="Total Donors" value={_campaign.donators.length} />
         </div>

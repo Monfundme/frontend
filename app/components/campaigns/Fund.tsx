@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useCheckChain, useWrite } from "@/utils/hooks";
 import { WriteDataType } from "@/types";
+import { parseEther } from "viem";
 
 const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
   const [amount, setAmount] = useState<string>("");
@@ -18,7 +19,7 @@ const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
   const handleDonate = async () => {
     const writeData: WriteDataType = {
       function: "donateWithMON",
-      amount: amount,
+      amount: parseEther(amount),
       id: Number(id),
     };
     await checkAndSwitch();

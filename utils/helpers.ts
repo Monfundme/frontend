@@ -1,8 +1,10 @@
+import { formatEther, parseEther } from "viem";
+
 interface ObjData {
   targetDate: string | number | Date;
 }
 
-const convert = (date: string): number => {
+export const convertDate = (date: string): number => {
   const objData: ObjData = {
     targetDate: date,
   };
@@ -13,5 +15,3 @@ const convert = (date: string): number => {
 
   return timestampInSeconds;
 };
-
-export default convert;

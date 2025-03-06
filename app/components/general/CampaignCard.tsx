@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Wallet } from "lucide-react";
 import { Campaign } from "@/types";
+import { formatEther } from "viem";
 
 const CampaignCard = ({
   campaign,
@@ -20,10 +21,10 @@ const CampaignCard = ({
       <div className="h-[60%] relative rounded-t-xl overflow-hidden -z-10  ">
         <Image
           src={campaign.image}
-          alt=""
+          alt="camp_img"
           className="group-hover:scale-105 transition-all  duration-150 ease-linear"
           fill
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", objectPosition: "top" }}
         />
       </div>
       <div
@@ -53,7 +54,8 @@ const CampaignCard = ({
           } font-semibold flex items-center gap-2`}
         >
           <p className="flex-1">
-            {campaign.amountCollected.toLocaleString()} MON
+            {Number(formatEther(BigInt(campaign.amountCollected))).toFixed(2)}{" "}
+            MON
           </p>
           <p> 84% </p>
         </div>

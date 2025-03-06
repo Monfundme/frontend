@@ -1,9 +1,10 @@
 "use client";
 import { FormInputs } from "@/components/create";
 import { useAccount } from "wagmi";
-import convert from "@/utils/convertDate";
+import { convertDate } from "@/utils/helpers";
 import { useWrite, useCheckChain } from "@/utils/hooks";
 import { CampaignInput } from "@/types";
+import { parseEther } from "viem";
 
 const Page = () => {
   const { isPending, write } = useWrite();
@@ -18,8 +19,8 @@ const Page = () => {
     const writeData: CampaignInput = {
       title: objData.title as string,
       description: objData.description as string,
-      target: Number(objData.target),
-      deadline: convert(objData.deadline as string),
+      target: parseEther(objData.target as string),
+      deadline: convertDate(objData.deadline as string),
       image: objData.image as string,
       function: "createCampaign",
     };

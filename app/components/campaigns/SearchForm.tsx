@@ -27,8 +27,9 @@ const SearchForm = () => {
       <input
         type="text"
         value={search}
+        disabled
         autoComplete="off"
-        placeholder="Search"
+        placeholder="Search feature incoming..."
         className=" placeholder:text-black/70 p-2 bg-inherit flex-1 focus:outline-none "
         onChange={(e) => setSearch(e.target.value)}
       />
