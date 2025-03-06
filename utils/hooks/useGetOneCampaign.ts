@@ -1,10 +1,9 @@
 "use client";
 import { config } from "@/web3/config";
-import monfund_ABI from "@/components/web3/abi/monfund_ABI";
+import monfund_ABI from "@/web3/abi/monfund_ABI";
 import { monfund_CA } from "@/constant";
 import { useEffect } from "react";
 import { useReadContract, useBlockNumber } from "wagmi";
-import { Campaign } from "@/types";
 
 const useGetOneCampaign = (id: string) => {
 	const { data: blockNumber } = useBlockNumber({ watch: true });
@@ -25,7 +24,7 @@ const useGetOneCampaign = (id: string) => {
 		if (Number(blockNumber) % 5 === 0) refetch();
 	}, [blockNumber]);
 
-	return { campaign, isPending };
+	return { campaign, isPending, refetch };
 };
 
 export default useGetOneCampaign;

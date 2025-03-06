@@ -1,32 +1,43 @@
 "use client";
-import { FormInputs } from "@/components/create";
+import { FormInputs, ModalChildren } from "@/components/create";
 import { useAccount } from "wagmi";
-import convert from "@/utils/convertDate";
-import CustomToastConatainer from "@/components/general/CustomToastConatainer";
-import { useWrite } from "@/utils/hooks";
+import { convertDate } from "@/utils/helpers";
+import { useWrite, useCheckChain } from "@/utils/hooks";
 import { CampaignInput } from "@/types";
+import { parseEther } from "viem";
+import { Modal } from "@/components/general";
+import { useState } from "react";
 
 const Page = () => {
-	const { isPending, write } = useWrite("createCampaign");
+	const [toggle, setToggle] = useState<boolean>(false);
+	const { isPending, write, id } = useWrite();
 	const { isConnected } = useAccount();
+	const { checkAndSwitch } = useCheckChain();
 
 	const submit = async (data: FormData) => {
+		await checkAndSwitch();
+
 		const objData = Object.fromEntries(data);
 
-		const writeData = {
+		const writeData: CampaignInput = {
 			title: objData.title as string,
 			description: objData.description as string,
-			target: Number(objData.target),
-			deadline: convert(objData.deadline as string),
+			target: parseEther(objData.target as string),
+			deadline: convertDate(objData.deadline as string),
 			image: objData.image as string,
+			function: "createCampaign",
 		};
 
-		write(writeData);
+		write(writeData, setToggle);
 	};
 
 	return (
 		<div className=" py-[125px] ">
-			<CustomToastConatainer />
+			{toggle && (
+				<Modal setToggle={setToggle}>
+					<ModalChildren id={id} />
+				</Modal>
+			)}
 			<form
 				action={submit}
 				className="shadow-xl bg-slate-100 border-[0.5px] border-slate-200 flex flex-col gap-3 p-5 max-w-[800px] mx-auto ">
@@ -90,11 +101,7 @@ const Page = () => {
 					<button
 						type="submit"
 						disabled={isPending ? true : false}
-						className={` ${
-							isPending
-								? "bg-accent-10"
-								: "bg-accent-default  hover:bg-accent-80"
-						} text-white rounded-lg w-fit mx-auto  px-5 py-3 duration-150 ease-linear transition-colors shadow-md my-3`}>
+						className={` disabled:bg-accent-10 bg-accent-default hover:bg-accent-80 text-white rounded-lg w-fit mx-auto  px-5 py-3 duration-150 ease-linear transition-colors shadow-md my-3`}>
 						Create campaign
 					</button>
 				) : (

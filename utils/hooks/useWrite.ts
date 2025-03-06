@@ -7,7 +7,7 @@ import { monfund_CA } from "@/constant";
 import { config } from "@/web3/config";
 import { toast, Id } from "react-toastify";
 import { WriteDataType } from "@/types";
-import { parseEther } from "viem";
+import { decodeEventLog } from "viem";
 
 type Status = "success" | "reverted" | undefined;
 
@@ -15,9 +15,11 @@ const useWrite = (): {
 	isPending: boolean;
 	write: (writeData: WriteDataType, callback?: (arg?: any) => void) => void;
 	_status: Status;
+	id: string;
 } => {
 	const [isPending, startTransition] = useTransition();
 	const [_status, setStatus] = useState<Status>();
+	const [id, setId] = useState<string>("");
 	const { address } = useAccount();
 
 	let toastId: Id;
@@ -31,7 +33,6 @@ const useWrite = (): {
 		startTransition(async () => {
 			console.log("approve wallet transaction.");
 			toastId = toast.info("Approve wallet transaction ");
-
 			try {
 				const hash =
 					writeData.function === "createCampaign"
@@ -59,23 +60,30 @@ const useWrite = (): {
 				console.log("Waiting for tx to be mined", hash);
 				toastId = toast.loading("Transaction pending ...");
 
-				const { status, transactionHash } = await waitForTransactionReceipt(
-					_config,
-					{
+				const { status, transactionHash, logs } =
+					await waitForTransactionReceipt(_config, {
 						hash,
 						timeout: 30 * 1_000,
-					}
-				);
+					});
 				setStatus(status);
 				console.log("transaction --- ", transactionHash);
+				console.log("logs", logs[0].topics);
 
-				console.log("Transaction successful!");
+				const decodedEventLog: any = decodeEventLog({
+					abi: monfund_ABI,
+					data: logs[0].data,
+					topics: logs[0].topics,
+				});
+
+				setId(decodedEventLog.args.id);
+
 				toast.update(toastId, {
 					render: "Transaction successful!",
 					type: "success",
 					isLoading: false,
 					autoClose: 2000,
 				});
+
 				callback && callback(true);
 			} catch (error: any) {
 				console.error("TRANSACTION ERROR!", error);
@@ -94,7 +102,7 @@ const useWrite = (): {
 		});
 	};
 
-	return { isPending, write, _status };
+	return { isPending, write, _status, id };
 };
 
 export default useWrite;
