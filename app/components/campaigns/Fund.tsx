@@ -1,11 +1,28 @@
 "use client";
 import { useState } from "react";
+import { useCheckChain, useWrite } from "@/utils/hooks";
+import { WriteDataType } from "@/types";
 
-const Fund = () => {
-  const [amount, setAmount] = useState("");
+const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
+  const [amount, setAmount] = useState<string>("");
+  const { isPending, write, _status } = useWrite();
+  const { checkAndSwitch } = useCheckChain();
 
-  const handleDonate = () => {
-    console.log("donating ... ", amount);
+  if (_status == "success") {
+    console.log("refetching...");
+    refetch();
+  }
+
+  // console.log("status without useEffect ----- ", _status);
+
+  const handleDonate = async () => {
+    const writeData: WriteDataType = {
+      function: "donateWithMON",
+      amount: amount,
+      id: Number(id),
+    };
+    await checkAndSwitch();
+    write(writeData);
   };
 
   return (
@@ -21,7 +38,7 @@ const Fund = () => {
         <div className="mt-[30px]">
           <input
             type="number"
-            placeholder="ETH 0.1"
+            placeholder="MON 0.1"
             step="0.01"
             className="w-full py-[10px] bg-white sm:px-[20px] px-[15px] outline-none text-black text-[18px] leading-[30px] placeholder:text-black/50 rounded-[10px]"
             value={amount}
@@ -36,8 +53,9 @@ const Fund = () => {
 
           <button
             type="button"
-            className={`font-epilogue font-semibold text-[16px] leading-[26px] shadow-md text-white  min-h-[52px] px-4 rounded-[10px] accent_with_fade `}
-            onClick={handleDonate}
+            disabled={isPending ? true : false}
+            className={` disabled:bg-accent-10 font-epilogue font-semibold text-[16px] leading-[26px] shadow-md text-white  min-h-[52px] px-4 rounded-[10px] accent_with_fade `}
+            onClick={!isPending ? handleDonate : () => null}
           >
             Fund campaign
           </button>

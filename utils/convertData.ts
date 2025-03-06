@@ -2,7 +2,7 @@ interface ObjData {
   targetDate: string | number | Date;
 }
 
-const convert = (date: string) => {
+const convert = (date: string): number => {
   const objData: ObjData = {
     targetDate: date,
   };

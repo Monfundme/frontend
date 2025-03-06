@@ -1,18 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Wallet } from "lucide-react";
+import { Campaign } from "@/types";
 
-const CampaignCard = ({ isTrending }: { isTrending: boolean }) => {
+const CampaignCard = ({
+  campaign,
+  isTrending,
+}: {
+  campaign: Campaign;
+  isTrending: boolean;
+}) => {
   return (
     <Link
-      href={`/campaigns/${10}`}
+      href={`/campaigns/${campaign._id}`}
       className={` ${
         isTrending ? "h-[500px]" : "h-[300px]"
       } flex flex-col shadow-xl rounded-t-xl group border-[0.5px] border-slate-200 `}
     >
       <div className="h-[60%] relative rounded-t-xl overflow-hidden -z-10  ">
         <Image
-          src={"/images/monadalak.jpeg"}
+          src={campaign.image}
           alt=""
           className="group-hover:scale-105 transition-all  duration-150 ease-linear"
           fill
@@ -29,12 +36,11 @@ const CampaignCard = ({ isTrending }: { isTrending: boolean }) => {
             isTrending ? "text-xl leading-5" : "leading-4"
           } font-bold `}
         >
-          Help mondalak get a wife, That he loves so much ...
+          {campaign.title}
         </h2>
         {isTrending && (
           <p className=" leading-[16px] flex-1 text-black/90">
-            We&apos;re trying to get someone for monadalak that would help and
-            be his support system ...
+            {campaign.description}
           </p>
         )}
 
@@ -46,7 +52,9 @@ const CampaignCard = ({ isTrending }: { isTrending: boolean }) => {
             isTrending ? "" : "text-sm"
           } font-semibold flex items-center gap-2`}
         >
-          <p className="flex-1">$50,000 raised</p>
+          <p className="flex-1">
+            {campaign.amountCollected.toLocaleString()} MON
+          </p>
           <p> 84% </p>
         </div>
         <div className=" flex items-center gap-2 ">
@@ -56,7 +64,10 @@ const CampaignCard = ({ isTrending }: { isTrending: boolean }) => {
               size={isTrending ? 16 : 13}
             />
           </div>
-          <p className={isTrending ? "" : "text-sm"}>0x12...5sd3f</p>
+          <p className={isTrending ? "" : "text-sm"}>{`${campaign.owner.slice(
+            0,
+            4
+          )}...${campaign.owner.slice(-6)}`}</p>
         </div>
       </div>
     </Link>

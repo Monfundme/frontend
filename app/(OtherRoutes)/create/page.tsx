@@ -1,41 +1,30 @@
 "use client";
 import { FormInputs } from "@/components/create";
-import { useAccount, useWriteContract } from "wagmi";
-import monfund_ABI from "@/components/web3/abi/monfund_ABI";
-import { monfund_CA } from "@/constant";
-import { config } from "@/components/web3/config";
-import { waitForTransactionReceipt } from "viem/actions";
-import convert from "@/utils/convertData";
+import { useAccount } from "wagmi";
+import convert from "@/utils/convertDate";
+import { useWrite, useCheckChain } from "@/utils/hooks";
+import { CampaignInput } from "@/types";
 
-const page = () => {
-  const { writeContractAsync } = useWriteContract();
-  const { address } = useAccount();
-
-  const _config: any = config;
+const Page = () => {
+  const { isPending, write } = useWrite();
+  const { isConnected } = useAccount();
+  const { checkAndSwitch } = useCheckChain();
 
   const submit = async (data: FormData) => {
-    try {
-      const objData = Object.fromEntries(data);
+    await checkAndSwitch();
 
-      const targetDate = objData.targetDate;
-      const hash = await writeContractAsync({
-        abi: monfund_ABI,
-        address: monfund_CA as `0x${string}`,
-        functionName: "createCampaign",
-        args: [
-          address,
-          objData.title,
-          objData.description,
-          Number(objData.targetAmount),
-          convert(objData.targetDate as string),
-          objData.imageURL,
-        ],
-      });
-      const res = await waitForTransactionReceipt(_config, { hash });
-      console.log("transaction --- ", res);
-    } catch (error) {
-      console.error(error);
-    }
+    const objData = Object.fromEntries(data);
+
+    const writeData: CampaignInput = {
+      title: objData.title as string,
+      description: objData.description as string,
+      target: Number(objData.target),
+      deadline: convert(objData.deadline as string),
+      image: objData.image as string,
+      function: "createCampaign",
+    };
+
+    write(writeData);
   };
 
   return (
@@ -78,13 +67,13 @@ const page = () => {
 
         <div className=" grid grid-cols-2 gap-7 ">
           <FormInputs
-            id="targetAmount"
+            id="target"
             placeholder="e.g. 1,000,000"
             name="Target Amount"
             type="number"
           />
           <FormInputs
-            id="targetDate"
+            id="deadline"
             placeholder="e.g. dd/mm/yy"
             name="Target Date"
             type="date"
@@ -93,22 +82,33 @@ const page = () => {
 
         <div className=" ">
           <FormInputs
-            id="imageURL"
+            id="image"
             placeholder="image url for your campaign"
             name="Image URL"
             type="url"
           />
         </div>
 
-        <button
-          type="submit"
-          className=" text-white bg-accent-default rounded-lg w-fit mx-auto hover:bg-accent-80 px-5 py-3 duration-150 ease-linear transition-colors shadow-md my-3 "
-        >
-          Create campaign
-        </button>
+        {isConnected ? (
+          <button
+            type="submit"
+            disabled={isPending ? true : false}
+            className={` disabled:bg-accent-10 bg-accent-default hover:bg-accent-80 text-white rounded-lg w-fit mx-auto  px-5 py-3 duration-150 ease-linear transition-colors shadow-md my-3`}
+          >
+            Create campaign
+          </button>
+        ) : (
+          <button
+            type="button"
+            disabled
+            className={` disabled:bg-accent-10 text-white rounded-lg w-fit mx-auto  px-5 py-3 duration-150 ease-linear transition-colors shadow-md my-3`}
+          >
+            Connect Wallet to creae a campaign
+          </button>
+        )}
       </form>
     </div>
   );
 };
 
-export default page;
+export default Page;

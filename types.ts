@@ -8,19 +8,32 @@ export type InputIdTypes =
   | "name"
   | "title"
   | "description"
-  | "targetAmount"
-  | "targetDate"
-  | "imageURL";
+  | "target"
+  | "deadline"
+  | "image";
 
-export interface Campaign {
-  amountCollected: number;
+export interface CampaignInput {
   deadline: number;
-  description: string;
-  donations: number[];
-  donators: string[];
   image: string;
-  owner: string;
   target: number;
   title: string;
-  _id: number;
+  description: string;
+  function: "createCampaign";
 }
+
+export interface Campaign extends CampaignInput {
+  amountCollected: number;
+  donations: number[];
+  donators: string[];
+  owner: string;
+  title: string;
+  _id: string;
+}
+
+export interface DonateInput {
+  id: number;
+  amount: string;
+  function: "donateWithMON";
+}
+
+export type WriteDataType = CampaignInput | DonateInput;

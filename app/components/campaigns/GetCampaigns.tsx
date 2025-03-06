@@ -1,13 +1,21 @@
+"use client";
+import { Campaign } from "@/types";
 import { CampaignCard } from "../general";
+import { useGetCampaigns } from "@/utils/hooks";
 
 const GetCampaigns = () => {
-  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  const campaigns: Campaign[] = useGetCampaigns();
 
   return (
     <div className=" grid grid-cols-2 gap-2 lg:grid-cols-[repeat(auto-fill,minmax(250px,1fr))] lg:gap-5">
-      {data.map((i) => (
-        <CampaignCard key={i} isTrending={false} />
-      ))}
+      {campaigns &&
+        campaigns.map((campaign: Campaign) => (
+          <CampaignCard
+            key={`${campaign._id}Loldsasa`}
+            isTrending={false}
+            campaign={campaign}
+          />
+        ))}
     </div>
   );
 };

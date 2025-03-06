@@ -4,6 +4,8 @@ import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
 import { arbitrumSepolia } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { createPublicClient, http } from "viem";
+import CustomToastConatainer from "../general/CustomToastConatainer";
 
 export const config = getDefaultConfig({
   appName: "My RainbowKit App",
@@ -12,12 +14,20 @@ export const config = getDefaultConfig({
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
+export const publicClient = createPublicClient({
+  transport: http(),
+  chain: arbitrumSepolia,
+});
+
 const queryClient = new QueryClient();
 const Web3Provider = ({ children }: { children: any }) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>{children}</RainbowKitProvider>
+        <RainbowKitProvider>
+          {children}
+          <CustomToastConatainer />
+        </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
