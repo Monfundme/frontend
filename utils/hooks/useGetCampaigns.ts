@@ -8,7 +8,11 @@ import { Campaign } from "@/types";
 
 const useGetCampaigns = (lowerLimit: number = 0, upperLimit: number = 50) => {
 	const { data: blockNumber } = useBlockNumber({ watch: true });
-	const { data: donations, refetch } = useReadContract({
+	const {
+		data: donations,
+		refetch,
+		isPending,
+	} = useReadContract({
 		abi: monfund_ABI,
 		address: monfund_CA,
 		functionName: "getActiveCampaigns",
@@ -17,11 +21,10 @@ const useGetCampaigns = (lowerLimit: number = 0, upperLimit: number = 50) => {
 	});
 
 	useEffect(() => {
-		console.log("blockNumber", blockNumber);
 		if (Number(blockNumber) % 5 === 0) refetch();
 	}, [blockNumber]);
 
-	return donations as Campaign[];
+	return { campaigns: donations as Campaign[], isPending };
 };
 
 export default useGetCampaigns;

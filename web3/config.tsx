@@ -5,18 +5,18 @@ import { WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { createPublicClient, http } from "viem";
 import CustomToastConatainer from "../components/general/CustomToastConatainer";
-import { monadTestnet } from "./monad";
+import { monadDevnet } from "./monad";
 
 export const config = getDefaultConfig({
 	appName: "My RainbowKit App",
 	projectId: "YOUR_PROJECT_ID",
-	chains: [],
+	chains: [monadDevnet],
 	ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
 export const publicClient = createPublicClient({
 	transport: http(),
-	chain: monadTestnet,
+	chain: monadDevnet,
 });
 
 const queryClient = new QueryClient();

@@ -31,7 +31,6 @@ const useWrite = (): {
 		callback?: (arg?: boolean) => void
 	) => {
 		startTransition(async () => {
-			console.log("approve wallet transaction.");
 			toastId = toast.info("Approve wallet transaction ");
 			try {
 				const hash =
@@ -42,6 +41,7 @@ const useWrite = (): {
 								functionName: writeData.function,
 								args: [
 									address,
+									writeData.name,
 									writeData.title,
 									writeData.description,
 									writeData.target,
@@ -57,17 +57,13 @@ const useWrite = (): {
 								args: [writeData.id, writeData.amount],
 						  });
 
-				console.log("Waiting for tx to be mined", hash);
 				toastId = toast.loading("Transaction pending ...");
 
-				const { status, transactionHash, logs } =
-					await waitForTransactionReceipt(_config, {
-						hash,
-						timeout: 30 * 1_000,
-					});
+				const { status, logs } = await waitForTransactionReceipt(_config, {
+					hash,
+					timeout: 30 * 1_000,
+				});
 				setStatus(status);
-				console.log("transaction --- ", transactionHash);
-				console.log("logs", logs[0].topics);
 
 				const decodedEventLog: any = decodeEventLog({
 					abi: monfund_ABI,
@@ -75,7 +71,7 @@ const useWrite = (): {
 					topics: logs[0].topics,
 				});
 
-				setId(decodedEventLog.args.id);
+				setId(decodedEventLog.args.campaignId);
 
 				toast.update(toastId, {
 					render: "Transaction successful!",

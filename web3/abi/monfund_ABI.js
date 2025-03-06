@@ -1,6 +1,11 @@
 const monfund_ABI = [
 	{
 		inputs: [],
+		stateMutability: "nonpayable",
+		type: "constructor",
+	},
+	{
+		inputs: [],
 		name: "ReentrancyGuardReentrantCall",
 		type: "error",
 	},
@@ -9,9 +14,22 @@ const monfund_ABI = [
 		inputs: [
 			{
 				indexed: true,
-				internalType: "uint256",
+				internalType: "bytes12",
+				name: "campaignId",
+				type: "bytes12",
+			},
+		],
+		name: "CampaignClosed",
+		type: "event",
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "bytes12",
 				name: "id",
-				type: "uint256",
+				type: "bytes12",
 			},
 			{
 				indexed: false,
@@ -28,9 +46,9 @@ const monfund_ABI = [
 		inputs: [
 			{
 				indexed: true,
-				internalType: "uint256",
-				name: "id",
-				type: "uint256",
+				internalType: "bytes12",
+				name: "campaignId",
+				type: "bytes12",
 			},
 			{
 				indexed: true,
@@ -65,9 +83,9 @@ const monfund_ABI = [
 		inputs: [
 			{
 				indexed: true,
-				internalType: "uint256",
+				internalType: "bytes12",
 				name: "campaignId",
-				type: "uint256",
+				type: "bytes12",
 			},
 			{
 				indexed: true,
@@ -88,17 +106,22 @@ const monfund_ABI = [
 	{
 		inputs: [
 			{
-				internalType: "uint256",
+				internalType: "bytes12",
 				name: "",
-				type: "uint256",
+				type: "bytes12",
 			},
 		],
 		name: "activeCampaigns",
 		outputs: [
 			{
-				internalType: "uint256",
+				internalType: "bytes12",
 				name: "_id",
-				type: "uint256",
+				type: "bytes12",
+			},
+			{
+				internalType: "string",
+				name: "name",
+				type: "string",
 			},
 			{
 				internalType: "address",
@@ -142,17 +165,35 @@ const monfund_ABI = [
 	{
 		inputs: [
 			{
-				internalType: "uint256",
+				internalType: "bytes12",
+				name: "_id",
+				type: "bytes12",
+			},
+		],
+		name: "closeCampaign",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "bytes12",
 				name: "",
-				type: "uint256",
+				type: "bytes12",
 			},
 		],
 		name: "completedCampaigns",
 		outputs: [
 			{
-				internalType: "uint256",
+				internalType: "bytes12",
 				name: "_id",
-				type: "uint256",
+				type: "bytes12",
+			},
+			{
+				internalType: "string",
+				name: "name",
+				type: "string",
 			},
 			{
 				internalType: "address",
@@ -188,6 +229,19 @@ const monfund_ABI = [
 				internalType: "string",
 				name: "image",
 				type: "string",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [],
+		name: "contractOwner",
+		outputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address",
 			},
 		],
 		stateMutability: "view",
@@ -199,6 +253,11 @@ const monfund_ABI = [
 				internalType: "address",
 				name: "_owner",
 				type: "address",
+			},
+			{
+				internalType: "string",
+				name: "_name",
+				type: "string",
 			},
 			{
 				internalType: "string",
@@ -229,9 +288,9 @@ const monfund_ABI = [
 		name: "createCampaign",
 		outputs: [
 			{
-				internalType: "uint256",
+				internalType: "bytes12",
 				name: "",
-				type: "uint256",
+				type: "bytes12",
 			},
 		],
 		stateMutability: "nonpayable",
@@ -240,9 +299,9 @@ const monfund_ABI = [
 	{
 		inputs: [
 			{
-				internalType: "uint256",
+				internalType: "bytes12",
 				name: "_id",
-				type: "uint256",
+				type: "bytes12",
 			},
 			{
 				internalType: "uint256",
@@ -273,9 +332,14 @@ const monfund_ABI = [
 			{
 				components: [
 					{
-						internalType: "uint256",
+						internalType: "bytes12",
 						name: "_id",
-						type: "uint256",
+						type: "bytes12",
+					},
+					{
+						internalType: "string",
+						name: "name",
+						type: "string",
 					},
 					{
 						internalType: "address",
@@ -334,9 +398,9 @@ const monfund_ABI = [
 	{
 		inputs: [
 			{
-				internalType: "uint256",
+				internalType: "bytes12",
 				name: "_id",
-				type: "uint256",
+				type: "bytes12",
 			},
 		],
 		name: "getCampaignById",
@@ -344,9 +408,14 @@ const monfund_ABI = [
 			{
 				components: [
 					{
-						internalType: "uint256",
+						internalType: "bytes12",
 						name: "_id",
-						type: "uint256",
+						type: "bytes12",
+					},
+					{
+						internalType: "string",
+						name: "name",
+						type: "string",
 					},
 					{
 						internalType: "address",
@@ -415,9 +484,14 @@ const monfund_ABI = [
 			{
 				components: [
 					{
-						internalType: "uint256",
+						internalType: "bytes12",
 						name: "_id",
-						type: "uint256",
+						type: "bytes12",
+					},
+					{
+						internalType: "string",
+						name: "name",
+						type: "string",
 					},
 					{
 						internalType: "address",
@@ -491,9 +565,14 @@ const monfund_ABI = [
 			{
 				components: [
 					{
-						internalType: "uint256",
+						internalType: "bytes12",
 						name: "_id",
-						type: "uint256",
+						type: "bytes12",
+					},
+					{
+						internalType: "string",
+						name: "name",
+						type: "string",
 					},
 					{
 						internalType: "address",
@@ -551,7 +630,7 @@ const monfund_ABI = [
 	},
 	{
 		inputs: [],
-		name: "numberOfActiveCampaigns",
+		name: "getNumberOfActiveCampaigns",
 		outputs: [
 			{
 				internalType: "uint256",
@@ -564,7 +643,7 @@ const monfund_ABI = [
 	},
 	{
 		inputs: [],
-		name: "numberOfCompletedCampaigns",
+		name: "getNumberOfCompletedCampaigns",
 		outputs: [
 			{
 				internalType: "uint256",

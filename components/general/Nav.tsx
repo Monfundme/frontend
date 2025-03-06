@@ -3,25 +3,19 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-import { useDisconnect } from "wagmi";
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
 	const { openConnectModal } = useConnectModal();
 	const { address, isConnected } = useAccount();
-	const { disconnect } = useDisconnect();
+	const { push } = useRouter();
 
 	const handleDisconnect = () => {
-		try {
-			console.log("DISCONNECTING... ");
-			disconnect();
-		} catch (error) {
-			console.error("disconnect error ---", error);
-		}
+		push("/profile/campaigns");
 	};
 
 	const handleConnect = () => {
 		try {
-			console.log("connecting monadl");
 			openConnectModal && openConnectModal();
 		} catch (error) {
 			console.error("connect error --- ", error);

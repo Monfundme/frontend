@@ -23,7 +23,6 @@ const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
 		: " -- ";
 
 	if (_status == "success") {
-		console.log("refetching...");
 		refetch();
 	}
 
@@ -38,7 +37,7 @@ const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
 		const writeData: WriteDataType = {
 			function: "donateWithMON",
 			amount: parseEther(amount),
-			id: Number(id),
+			id: id,
 		};
 		await checkAndSwitch();
 		write(writeData, setToggle);
@@ -75,7 +74,7 @@ const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
 								value={amount}
 								onChange={(e) => setAmount(e.target.value)}
 							/>
-							<p className="bg-accent-default text-white font-semibold grid place-content-center">
+							<p className="bg-accent-default text-white font-semibold grid place-content-center cursor-default ">
 								{Mon_bal}
 							</p>
 						</div>

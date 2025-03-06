@@ -1,21 +1,41 @@
 "use client";
 import { Campaign } from "@/types";
 import { CampaignCard } from "../general";
-import useGetCampaigns from "@/utils/hooks/useGetCampaigns";
+import { useGetCampaigns } from "@/utils/hooks";
+import { zeroAddress } from "viem";
+import { PageType } from "@/types";
 
-const GetCampaigns = () => {
-	const campaigns: Campaign[] = useGetCampaigns();
+const GetCampaigns = ({ page }: { page: PageType }) => {
+	const { campaigns, isPending } = useGetCampaigns(
+		page.lowerLimit,
+		page.higherLimit
+	);
+
+	if (isPending)
+		return (
+			<div className=" h-[300px] grid place-content-center"> Loading ...</div>
+		);
+
+	if (!campaigns || !campaigns.length)
+		return (
+			<div className=" h-[300px] grid place-content-center">
+				No Active Campaigns...
+			</div>
+		);
 
 	return (
-		<div className=" grid grid-cols-2 gap-2 lg:grid-cols-[repeat(auto-fill,minmax(250px,1fr))] lg:gap-5">
+		<div className=" grid_layout ">
 			{campaigns &&
-				campaigns.map((campaign: any, index: number) => (
-					<CampaignCard
-						key={index}
-						isTrending={false}
-						campaign={campaign}
-					/>
-				))}
+				campaigns.map(
+					(campaign: Campaign) =>
+						campaign.owner !== zeroAddress && (
+							<CampaignCard
+								key={`${campaign._id}Loldsasa`}
+								isTrending={false}
+								campaign={campaign}
+							/>
+						)
+				)}
 		</div>
 	);
 };

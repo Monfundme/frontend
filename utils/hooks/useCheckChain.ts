@@ -9,13 +9,8 @@ const useCheckChain = () => {
 	const { switchChainAsync } = useSwitchChain();
 
 	const checkAndSwitch = async () => {
-		console.log("config ---- ", _config.chains[0]?.id);
-		console.log("user chain ---- ", chainId);
-
 		if (chainId !== _config.chains[0]?.id) {
-			console.log("Incorrect chain...!!!!!");
 			await switchChainAsync({ chainId: config.chains[0]?.id });
-			console.log("chain changed!");
 		}
 	};
 

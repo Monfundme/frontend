@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Wallet } from "lucide-react";
 import { Campaign } from "@/types";
-import { formatEther } from "viem";
+import { formatEther, zeroAddress } from "viem";
 import { getPercentage } from "@/utils/helpers";
+import LoadingCard from "./LoadingCard";
 
 const CampaignCard = ({
 	campaign,
@@ -12,9 +13,12 @@ const CampaignCard = ({
 	campaign: Campaign;
 	isTrending: boolean;
 }) => {
+	if (!campaign || campaign.owner === zeroAddress)
+		return <LoadingCard isTrending />;
+
 	const percentage: number = getPercentage(
-		campaign.target,
-		campaign.amountCollected
+		campaign?.target,
+		campaign?.amountCollected
 	);
 
 	return (
@@ -42,11 +46,15 @@ const CampaignCard = ({
 						className={`${
 							isTrending ? "text-xl leading-5" : "leading-4"
 						} font-bold `}>
-						{campaign.title}
+						{campaign.title.length > 50
+							? ` ${campaign.title.slice(0, 50)} ...`
+							: campaign.title}
 					</h2>
 					{isTrending && (
 						<p className=" leading-[16px] flex-1 text-black/90">
-							{campaign.description}
+							{campaign.description.length > 150
+								? ` ${campaign.description.slice(0, 150)} ...`
+								: campaign.description}
 						</p>
 					)}
 				</div>

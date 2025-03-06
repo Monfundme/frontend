@@ -4,19 +4,18 @@ import monfund_ABI from "@/web3/abi/monfund_ABI";
 import { monfund_CA } from "@/constant";
 import { useEffect } from "react";
 import { useReadContract, useBlockNumber } from "wagmi";
-import { Campaign } from "@/types";
 
-const useGetOneCampaign = (id: string) => {
+const useGetCampaignsOfAddress = (address: string) => {
 	const { data: blockNumber } = useBlockNumber({ watch: true });
 	const {
-		data: campaign,
+		data: campaigns,
 		refetch,
 		isPending,
 	} = useReadContract({
 		abi: monfund_ABI,
 		address: monfund_CA,
-		functionName: "getCampaignById",
-		args: [id],
+		functionName: "getCampaignsOfAddress",
+		args: [address],
 		config: config,
 	});
 
@@ -24,7 +23,7 @@ const useGetOneCampaign = (id: string) => {
 		if (Number(blockNumber) % 5 === 0) refetch();
 	}, [blockNumber]);
 
-	return { campaign: campaign as Campaign, isPending, refetch };
+	return { campaigns, isPending, refetch };
 };
 
-export default useGetOneCampaign;
+export default useGetCampaignsOfAddress;

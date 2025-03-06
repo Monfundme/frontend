@@ -1,28 +1,34 @@
 "use client";
 import { CampaignCard } from "../general";
 import { Campaign } from "@/types";
-import { useGetCampaigns } from "@/utils/hooks";
 import LoadingCard from "../general/LoadingCard";
+import { useTrendingCampaigns } from "@/utils/hooks";
 
 const TrendingCampaign = () => {
-	const campaigns = useGetCampaigns();
+	const { campaigns, isPending } = useTrendingCampaigns();
+
+	if (isPending) {
+		return [1, 2, 3].map((i: number) => (
+			<LoadingCard
+				key={i}
+				isTrending={true}
+			/>
+		));
+	}
+
+	console.log("campaigns....", campaigns);
 
 	return (
 		<>
-			{campaigns?.length
-				? campaigns.slice(0, 3).map((campaign: Campaign) => (
-						<CampaignCard
-							campaign={campaign}
-							key={campaign._id}
-							isTrending
-						/>
-				  ))
-				: [1, 2, 3].map((i: number) => (
-						<LoadingCard
-							key={i}
-							isTrending={true}
-						/>
-				  ))}
+			{campaigns &&
+				campaigns.map((campaign: Campaign, index: number) => (
+					<CampaignCard
+						campaign={campaign}
+						key={index}
+						// key={campaign._id}
+						isTrending
+					/>
+				))}
 		</>
 	);
 };
