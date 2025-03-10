@@ -1,7 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 
-export default function page() {
+export default function Page() {
+  const [selectedRows, setSelectedRows] = React.useState<number[]>([]);
+
+  const handleCheckboxClick = (index: number) => {
+    setSelectedRows((prev) => {
+      if (prev.includes(index)) {
+        return prev.filter((i) => i !== index);
+      }
+      return [...prev, index];
+    });
+  };
+
   return (
     <div className="w-full h-dvh px-[36px] mt-6">
       <div className="flex items-center justify-between">
@@ -50,7 +63,14 @@ export default function page() {
               <tr key={index} className="border-b">
                 <td className="px-6 py-4 ">
                   <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 bg-[EADFF9] border-[#D0D5DD] border rounded-[2.7px]"></div>
+                    <div
+                      className={`w-5 h-5 border-[#D0D5DD] border rounded-[2.7px] cursor-pointer ${
+                        selectedRows.includes(index)
+                          ? "bg-[#8E35FD]"
+                          : "bg-[#ffff]"
+                      }`}
+                      onClick={() => handleCheckboxClick(index)}
+                    ></div>
                     <div className="w-10 h-10 rounded-full bg-[#EADFF9] border border-white flex items-center justify-center">
                       <span className="text-[#8E35FD] text-[15px] font-semibold">
                         N
