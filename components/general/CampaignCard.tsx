@@ -17,16 +17,15 @@ const CampaignCard = ({
 		return <LoadingCard isTrending />;
 
 	const percentage: number = getPercentage(
-		campaign?.target,
-		campaign?.amountCollected
+		campaign.targetAmount,
+		campaign.currentAmount
 	);
 
 	return (
 		<Link
-			href={`/campaigns/${campaign._id}`}
-			className={` ${
-				isTrending ? "h-[500px]" : "h-[300px]"
-			} flex flex-col shadow-xl rounded-t-xl group border-[0.5px] border-slate-200 `}>
+			href={`/campaigns/${campaign.id}`}
+			className={` ${isTrending ? "h-[500px]" : "h-[300px]"
+				} flex flex-col shadow-xl rounded-t-xl group border-[0.5px] border-slate-200 `}>
 			<div className="h-[55%] shrink-0 relative rounded-t-xl overflow-hidden -z-10  ">
 				<Image
 					src={campaign.image}
@@ -37,16 +36,14 @@ const CampaignCard = ({
 				/>
 			</div>
 			<div
-				className={` ${
-					isTrending ? "gap-2" : "gap-1"
-				} flex-1 bg-slate-100 rounded-t-xl -mt-2 pt-4 pb-3 px-4 flex flex-col `}>
+				className={` ${isTrending ? "gap-2" : "gap-1"
+					} flex-1 bg-slate-100 rounded-t-xl -mt-2 pt-4 pb-3 px-4 flex flex-col `}>
 				<div
 					className={` ${isTrending ? "h-[60%]" : "h-[30%]"} overflow-hidden `}>
 					<h2
-						className={`${
-							isTrending ? "text-xl leading-5" : "leading-4"
-						} font-bold `}>
-						{campaign.title.length > 50
+						className={`${isTrending ? "text-xl leading-5" : "leading-4"
+							} font-bold `}>
+						{campaign?.title?.length > 50
 							? ` ${campaign.title.slice(0, 50)} ...`
 							: campaign.title}
 					</h2>
@@ -67,11 +64,10 @@ const CampaignCard = ({
 						}}></div>
 				</div>
 				<div
-					className={` ${
-						isTrending ? "" : "text-sm"
-					} font-semibold flex items-center gap-2`}>
+					className={` ${isTrending ? "" : "text-sm"
+						} font-semibold flex items-center gap-2`}>
 					<p className="flex-1">
-						{Number(formatEther(BigInt(campaign.amountCollected))).toFixed(2)}{" "}
+						{Number(formatEther(campaign.currentAmount)).toFixed(2)}{" "}
 						MON
 					</p>
 					<p>{`${percentage.toFixed(2)} %`}</p>
@@ -84,10 +80,10 @@ const CampaignCard = ({
 							size={isTrending ? 16 : 13}
 						/>
 					</div>
-					<p className={isTrending ? "" : "text-sm"}>{`${campaign.owner.slice(
+					<p className={isTrending ? "" : "text-sm"}>{`${campaign ? campaign.owner_id?.slice(
 						0,
 						4
-					)}...${campaign.owner.slice(-6)}`}</p>
+					) : ""}...${campaign ? campaign.owner_id?.slice(-6) : ""}`}</p>
 				</div>
 			</div>
 		</Link>

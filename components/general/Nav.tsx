@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Nav = () => {
 	const { openConnectModal } = useConnectModal();
@@ -32,13 +33,14 @@ const Nav = () => {
 					<p>Search</p>
 				</Link>
 
-				<Link href={"/"}>
-					<p className=" text-accent-default font-extrabold ">MONFUNDME</p>
+				<Link href={"/"} className="flex items-center gap-2">
+					<Image src="/logo.png" alt="logo" width={28} height={28} />
+					<p className=" font-extrabold ">Monfundme</p>
 				</Link>
 
 				<button
 					onClick={isConnected ? handleDisconnect : handleConnect}
-					className=" hover:text-accent-default ease-linear duration-150 transition-colors border-2 px-4 py-2 border-accent-default rounded-lg font-bold ">
+					className=" hover:scale-105 bg-accent-default text-white  ease-linear duration-150 transition-all border-2 px-4 py-2 border-accent-default rounded-lg font-bold ">
 					{isConnected
 						? `${address?.slice(0, 4)}...${address?.slice(-6)}`
 						: "connect wallet"}

@@ -16,19 +16,26 @@ export interface CampaignInput {
 	name: string;
 	deadline: number;
 	image: string;
-	target: bigint;
+	targetAmount: bigint;
 	title: string;
 	description: string;
 	function: "createCampaign";
 }
 
+export interface Donation {
+	donator_id: string;
+	amount: bigint;
+	id?: string;
+	timestamp?: string;
+}
+
 export interface Campaign extends CampaignInput {
-	amountCollected: bigint;
-	donations: bigint[];
-	donators: string[];
+	owner_id: string;
+	currentAmount: bigint;
+	donations: Donation[] | [];
 	owner: string;
 	title: string;
-	_id: string;
+	id: string;
 }
 
 export interface DonateInput {
