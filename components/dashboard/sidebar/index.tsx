@@ -69,7 +69,7 @@ const Sidebar = () => {
                 {menuItems
                   .find((menu) => menu.title === "Main")
                   ?.list.map((item) => (
-                    <MenuLink item={item} key={item.title} icon={item.icon} />
+                    <MenuLink item={item} key={item.title}  />
                   ))}
               </li>
             </ul>
@@ -84,7 +84,7 @@ const Sidebar = () => {
               {menuItems
                 .find((menu) => menu.title === "Administration")
                 ?.list.map((item) => (
-                  <MenuLink item={item} key={item.title} icon={item.icon} />
+                  <MenuLink item={item} key={item.title}  />
                 ))}
             </li>
           </ul>

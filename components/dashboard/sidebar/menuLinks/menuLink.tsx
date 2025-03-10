@@ -8,7 +8,7 @@ interface MenuLinkProps {
   item: {
     title: string;
     path: string;
-    icon: string;
+    icon: JSX.Element;
   };
 }
 
