@@ -10,7 +10,6 @@ const dmSans = DM_Sans({
 	subsets: ["latin"],
 });
 
-
 export const metadata: Metadata = {
 	title: "Monfudme",
 	description: "Crowdfundig just got easier",
@@ -27,7 +26,6 @@ export default function RootLayout({
 				className={`${dmSans.variable} antialiased`}>
 				<Web3Provider>
 					<ApolloClientProvider>
-
 						<Nav />
 						{children}
 					</ApolloClientProvider>
