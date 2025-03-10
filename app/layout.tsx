@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono,DM_Sans, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Nav } from "@/components/general";
 import Web3Provider from "@/web3/config";
@@ -11,6 +12,22 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
 	variable: "--font-geist-mono",
+	subsets: ["latin"],
+});
+
+const dmSans = DM_Sans({
+	variable:"--font-dm-sans",
+	subsets:["latin"]
+})
+
+
+const nohemi = localFont({
+  src: "../public/fonts/Nohemi-Medium.otf",
+  variable: "--font-nohemi",
+});
+
+const inter = Inter({
+	variable: "--font-inter",
 	subsets: ["latin"],
 });
 
@@ -27,9 +44,9 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${nohemi.variable} ${inter.variable} antialiased`}>
 				<Web3Provider>
-					<Nav />
+					{/* <Nav /> */}
 					{children}
 				</Web3Provider>
 			</body>
