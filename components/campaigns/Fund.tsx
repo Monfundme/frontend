@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useCheckChain, useWrite } from "@/utils/hooks";
-import { WriteDataType } from "@/types";
 import { formatEther, parseEther } from "viem";
 import { Modal } from "../general";
 import { useAccount, useBalance } from "wagmi";
@@ -10,7 +9,6 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { waitForTransactionReceipt, writeContract } from "wagmi/actions";
-import { monfund_CA } from "@/constant";
 import monfund_ABI from "@/web3/abi/monfund_ABI";
 
 const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
