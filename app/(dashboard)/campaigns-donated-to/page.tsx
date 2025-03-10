@@ -18,8 +18,8 @@ const campaigns = [
       "Your donation helps provide essential educational resources for children in need.",
     raised: "200 MON",
     progress: 75,
-    daysLeft: 3,
-    status: "Active",
+    daysLeft: null,
+    status: "Completed",
   },
   {
     id: 3,
@@ -37,9 +37,9 @@ const campaigns = [
     description:
       "Provide clean and safe drinking water to underprivileged communities worldwide.",
     raised: "350 MON",
-    progress: 60,
-    daysLeft: 10,
-    status: "Active",
+    progress: 75,
+    daysLeft: null,
+    status: "Pending",
   },
   {
     id: 5,
@@ -126,8 +126,18 @@ export default function Page() {
                 </div>
                 <div className="mt-[7px]">
                   <h6 className="text-sm font-dmSans font-medium">
-                    <span className="text-[#01AD02]">{campaign.status}:</span>{" "}
-                    {campaign.daysLeft} days left{" "}
+                    <span
+                      className={`
+                      ${campaign.status === "Active" && "text-[#01AD02]"}
+                      ${campaign.status === "Completed" && "text-[#8E35FD]"}
+                      ${campaign.status === "Pending" && "text-[#FFA500]"}
+                    `}
+                    >
+                      {campaign.status}
+                    </span>
+                    {campaign.status === "Active" && campaign.daysLeft && (
+                      <>: {campaign.daysLeft} days left</>
+                    )}
                   </h6>
                 </div>
                 <button className="mt-[6px] h-[36px] w-[168px] text-sm text-white font-medium bg-[#8E35FD] border-[3px] border-[#BE8CFE] rounded-[35px] shadow-[0px_-5px_2px_0px_#BE8CFE_inset,_0px_5px_2px_0px_#BE8CFE_inset]">
