@@ -24,12 +24,12 @@ const menuItems = [
       },
       {
         title: "Campaigns Created",
-        path: "",
+        path: "/campaigns-created",
         icon: <HiSpeakerWave />,
       },
       {
         title: "Campaigns Donated To",
-        path: "/dashboard/documents",
+        path: "/campaigns-donated-to",
         icon: <HiSpeakerWave />,
       },
       {
