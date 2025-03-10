@@ -15,7 +15,7 @@ export default {
 					10: "rgba(230, 87, 255, 0.15)",
 					80: "rgba(230, 87, 255, 0.80)",
 					default: "var(--accent)",
-					dark: "#2e0936",
+					dark: "var(--accent-dark)",
 				},
 				l_yellow: "#f4f2ec",
 			},
