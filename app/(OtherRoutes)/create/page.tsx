@@ -47,9 +47,9 @@ const Page = () => {
 				name: objData.name as string,
 				title: objData.title as string,
 				description: objData.description as string,
-				target: parseEther(objData.target as string),
+				targetAmount: parseEther(objData.targetAmount as string),
 				deadline: convertDate(objData.deadline as string),
-				image: imageUrl, // Use the uploaded image URL
+				image: imageUrl,
 				function: "createCampaign",
 			};
 
@@ -97,10 +97,6 @@ const Page = () => {
 						placeholder="Tell us more about your campaign"
 						type="textarea"
 					/>
-				</div>
-
-				<div className=" bg-accent-dark text-white text-center p-4 ">
-					You will recieve a 100% of the raised amount
 				</div>
 
 				<div className=" grid grid-cols-2 gap-7 ">
