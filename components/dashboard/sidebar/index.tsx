@@ -12,6 +12,8 @@ import { GoHome } from "react-icons/go";
 import { HiSpeakerWave } from "react-icons/hi2";
 import { IoIosPaper } from "react-icons/io";
 import {TbLogout } from "react-icons/tb"
+import { IoCheckmarkCircleOutline } from "react-icons/io5";
+
 
 const menuItems = [
   {
@@ -28,14 +30,14 @@ const menuItems = [
         icon: <HiSpeakerWave />,
       },
       {
-        title: "Campaigns Donated To",
-        path: "/campaigns-donated-to",
-        icon: <HiSpeakerWave />,
-      },
-      {
         title: "Transactions",
         path: "/transactions",
         icon: <IoIosPaper />,
+      },
+      {
+        title: "Mon Voting",
+        path: "/mon-voting",
+        icon: <IoCheckmarkCircleOutline />,
       },
     ],
   },
@@ -47,7 +49,6 @@ const menuItems = [
         path: "/dashboard/settings",
         icon: <IoSettingsSharp />,
       },
-     
     ],
   },
 ];
