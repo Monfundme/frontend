@@ -13,15 +13,13 @@ const GetCampaigns = () => {
 
 	const { campaigns: _campaigns, loading, error: _error } = useCampaigns();
 
-	console.log("campaigns dig -- ", _campaigns[0]);
-
 	useEffect(() => {
 		setIsPending(loading);
-		
+
 		if (_error) {
 			setError(_error);
 		}
-		
+
 		if (_campaigns && _campaigns.length > 0) {
 			setCampaigns(_campaigns);
 		}
@@ -67,7 +65,7 @@ const GetCampaigns = () => {
 					lowerLimit: 0,
 					upperLimit: campaigns.length
 				}}
-				setLimits={() => {}} 
+				setLimits={() => { }}
 				isPending={isPending}
 			/>
 		</>

@@ -8,7 +8,7 @@ export type InputIdTypes =
 	| "name"
 	| "title"
 	| "description"
-	| "target"
+	| "targetAmount"
 	| "deadline"
 	| "image";
 
@@ -16,7 +16,7 @@ export interface CampaignInput {
 	name: string;
 	deadline: number;
 	image: string;
-	targetAmount: bigint;
+	targetAmount: number;
 	title: string;
 	description: string;
 	function: "createCampaign";
@@ -45,3 +45,31 @@ export interface DonateInput {
 }
 
 export type WriteDataType = CampaignInput | DonateInput;
+
+
+export interface Timestamp {
+	_seconds: number;
+	_nanoseconds: number;
+}
+
+export interface PendingCampaign {
+	id: string;
+	proposalId: string;
+	title: string;
+	description: string;
+	targetAmount: number;
+	deadline: number;
+	imageUrl: string;
+	campaignOwner: string;
+	status: 'pending' | 'active' | 'completed';
+	createdAt: Timestamp;
+	queuedAt: Timestamp;
+	updatedAt: Timestamp;
+}
+
+export interface ContextType {
+	pendingCampaigns: PendingCampaign[];
+	isLoading: boolean;
+	error: Error | null;
+}
+

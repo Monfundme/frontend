@@ -2,7 +2,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink, ApolloProvider } from '@apollo/client';
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:8080/v1/graphql',
+    uri: 'https://indexer.dev.hyperindex.xyz/71f8f0f/v1/graphql',
 });
 
 export const client = new ApolloClient({
@@ -16,7 +16,7 @@ export const client = new ApolloClient({
 });
 
 const ApolloClientProvider = ({ children }: { children: React.ReactNode }) => {
-    return <ApolloProvider client={ client }> { children } </ApolloProvider>;
+    return <ApolloProvider client={client}> {children} </ApolloProvider>;
 };
 
 export default ApolloClientProvider;

@@ -22,6 +22,11 @@ export default {
 			boxShadow: {
 				main: "0px 5px var(--accent)",
 			},
+			fontFamily: {
+				dmSans: ["var(--font-dm-sans)"],
+				nohemi:["var(--font-nohemi)"],
+				inter:["var(--font-inter)"]
+			},
 		},
 	},
 	plugins: [],

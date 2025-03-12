@@ -10,10 +10,6 @@ const useGetOneCampaign = (id: string) => {
 		pollInterval: 3000
 	});
 
-	console.log("data -- from useGetOneCampaign -- ", data);
-	console.log("loading -- from useGetOneCampaign -- ", loading);
-	console.log("error -- from useGetOneCampaign -- ", error);
-
 	return { campaign: data?.Campaign as Campaign[] || [], loading, error };
 };
 

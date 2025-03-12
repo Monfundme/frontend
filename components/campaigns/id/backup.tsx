@@ -1,15 +1,12 @@
 "use client";
 import CountBox from "../CountBox";
 import { useGetOneCampaign } from "@/utils/hooks";
-import { Wallet, User } from "lucide-react";
-import Fund from "../Fund";
 import { formatEther, zeroAddress } from "viem";
 import { getPercentage } from "@/utils/helpers";
-import { Donation } from "@/types";
 
 const Main = ({ id }: { id: string }) => {
 
-	const { campaign, loading: isPending, error } = useGetOneCampaign(id);
+	const { campaign, loading: isPending } = useGetOneCampaign(id);
 	const dayConvert = 24 * 60 * 60;
 
 	if (isPending) {
@@ -25,12 +22,10 @@ const Main = ({ id }: { id: string }) => {
 
 	const {
 		deadline,
-		description,
 		donations,
 		image,
 		owner_id,
 		currentAmount,
-		title,
 		targetAmount,
 	} = campaign[0];
 
@@ -42,7 +37,7 @@ const Main = ({ id }: { id: string }) => {
 			</div>
 		);
 
-	const percentage: number = getPercentage(targetAmount, currentAmount);
+	const percentage: number = getPercentage(BigInt(targetAmount), currentAmount);
 
 	return (
 		<main className=" max-w-[1200px] mx-auto ">
@@ -87,7 +82,7 @@ const Main = ({ id }: { id: string }) => {
 				</div>
 			</div>
 
-			
+
 		</main>
 	);
 };

@@ -17,7 +17,7 @@ const CampaignCard = ({
 		return <LoadingCard isTrending />;
 
 	const percentage: number = getPercentage(
-		campaign.targetAmount,
+		BigInt(campaign.targetAmount),
 		campaign.currentAmount
 	);
 
@@ -58,7 +58,7 @@ const CampaignCard = ({
 
 				<div className=" h-[5px] w-full mt-4 bg-gray-300 relative overflow-hidden">
 					<div
-						className={` h-full absolute bg-accent-default top-0 left-0 z-10`}
+						className={` skill-per h-full absolute bg-accent-default top-0 left-0 z-10`}
 						style={{
 							width: `${percentage.toFixed(2)}%`,
 						}}></div>

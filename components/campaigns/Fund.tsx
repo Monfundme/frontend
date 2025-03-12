@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useCheckChain, useWrite } from "@/utils/hooks";
-import { WriteDataType } from "@/types";
 import { formatEther, parseEther } from "viem";
 import { Modal } from "../general";
 import { useAccount, useBalance } from "wagmi";
@@ -10,13 +9,12 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { waitForTransactionReceipt, writeContract } from "wagmi/actions";
-import { monfund_CA } from "@/constant";
 import monfund_ABI from "@/web3/abi/monfund_ABI";
 
 const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
 	const [amount, setAmount] = useState<string>("");
 	const [toggle, setToggle] = useState<boolean>(false);
-	const { isPending, write, _status } = useWrite();
+	const { isPending, _status } = useWrite();
 	const { checkAndSwitch } = useCheckChain();
 	const { isConnected, address } = useAccount();
 	const { openConnectModal } = useConnectModal();
@@ -49,22 +47,27 @@ const Fund = ({ id, refetch }: { id: string; refetch: () => void }) => {
 		}
 
 		const donate = new Promise(async (resolve, reject) => {
-			const tx = await writeContract(config, {
-				abi: monfund_ABI,
-				address: id as `0x${string}`,
-				functionName: "donateWithMON",
-				value: parseEther(amount),
-			});
+			try {
+				const tx = await writeContract(config, {
+					abi: monfund_ABI,
+					address: id as `0x${string}`,
+					functionName: "donateWithMON",
+					value: parseEther(amount),
+				});
 
-			const { status } = await waitForTransactionReceipt(config, {
-				hash: tx,
-			});
+				const { status } = await waitForTransactionReceipt(config, {
+					hash: tx,
+				});
 
-			if (status == "success") {
-				setToggle(true);
-				resolve("Campaign funded");
-			} else {
-				reject("Error funding campaign");
+				if (status == "success") {
+					setToggle(true);
+					resolve("Campaign funded");
+				} else {
+					reject("Error funding campaign");
+				}
+
+			} catch (error: any) {
+				reject(error?.shortMessage || error?.message);
 			}
 		});
 		toast.promise(donate, {
