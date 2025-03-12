@@ -19,7 +19,7 @@ const LeftSection = ({ image, description, owner_id, donations }: { image: strin
                     C
                 </div>
                 <div>
-                    <p className="font-medium">Nono</p>
+                    <p className="font-medium">User</p>
                     <p className="text-sm text-gray-600 break-all">{owner_id}</p>
                 </div>
             </div>

@@ -25,11 +25,11 @@ const Page = () => {
 		<div className=" my-[50px] ">
 			{_campaigns?.length ? (
 				<div className=" grid_layout ">
-					{_campaigns.map((campaign) => (
+					{_campaigns.map((campaign, index: number) => (
 						<CampaignCard
 							campaign={campaign}
 							isTrending={false}
-							key={campaign._id}
+							key={index}
 						/>
 					))}
 				</div>

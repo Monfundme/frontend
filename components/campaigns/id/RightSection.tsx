@@ -1,9 +1,8 @@
 import { Donation } from "@/types";
 import { formatEther } from "viem";
-import { Wallet, User } from "lucide-react";
 import Fund from "../Fund";
 
-const RightSection = ({ id, owner_id, description, donations, currentAmount, targetAmount, percentage, daysLeft }: { id: string, owner_id: string, description: string, donations: Donation[], currentAmount: bigint, targetAmount: bigint, percentage: number, daysLeft: number }) => {
+const RightSection = ({ id, donations, currentAmount, targetAmount, percentage, daysLeft }: { id: string, owner_id: string, description: string, donations: Donation[], currentAmount: bigint, targetAmount: bigint, percentage: number, daysLeft: number }) => {
     return <div className="bg-white rounded-2xl p-6 shadow-xl border-1 border-slate-500 h-fit flex-1 sticky top-[100px] border-[0.5px] border-slate-500/20 ">
         <div className="mb-6">
             <h2 className="text-3xl font-bold mb-2">

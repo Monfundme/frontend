@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import { Nav } from "@/components/general";
 import Web3Provider from "@/web3/config";
 import ApolloClientProvider from "@/web3/Apollo";
 
@@ -26,7 +25,6 @@ export default function RootLayout({
 				className={`${dmSans.variable} antialiased`}>
 				<Web3Provider>
 					<ApolloClientProvider>
-						<Nav />
 						{children}
 					</ApolloClientProvider>
 				</Web3Provider>
