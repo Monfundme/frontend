@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import MonfundmeLogo from "./MonfundmeLogo";
 
 const Nav = () => {
 	const { openConnectModal } = useConnectModal();
@@ -12,7 +12,7 @@ const Nav = () => {
 	const { push } = useRouter();
 
 	const handleDisconnect = () => {
-		push("/profile/campaigns");
+		push("/dashboard");
 	};
 
 	const handleConnect = () => {
@@ -33,10 +33,7 @@ const Nav = () => {
 					<p>Search</p>
 				</Link>
 
-				<Link href={"/"} className="flex items-center gap-2">
-					<Image src="/logo.png" alt="logo" width={28} height={28} />
-					<p className=" font-extrabold ">Monfundme</p>
-				</Link>
+				<MonfundmeLogo />
 
 				<button
 					onClick={isConnected ? handleDisconnect : handleConnect}

@@ -19,7 +19,7 @@ const Main = ({ id }: { id: string }) => {
 	if (!campaign || campaign[0].owner_id === zeroAddress) {
 		return (
 			<div className="m-[100px] text-center text-2xl font-semibold min-h-dvh">
-				Can't find campaign
+				Can&apos;t find campaign
 			</div>
 		);
 	}
@@ -34,7 +34,7 @@ const Main = ({ id }: { id: string }) => {
 		targetAmount,
 	} = campaign[0];
 
-	const percentage = getPercentage(targetAmount, currentAmount);
+	const percentage = getPercentage(BigInt(targetAmount), currentAmount);
 	const daysLeft = Math.floor((Number(deadline) - Date.now() / 1000) / (24 * 60 * 60));
 
 	return (
@@ -46,7 +46,7 @@ const Main = ({ id }: { id: string }) => {
 				<LeftSection image={image} description={description} owner_id={campaign[0].owner_id} donations={donations} />
 
 				{/* Right Column */}
-				<RightSection id={id} owner_id={campaign[0].owner_id} description={description} donations={donations} currentAmount={currentAmount} targetAmount={targetAmount} percentage={percentage} daysLeft={daysLeft} />
+				<RightSection id={id} owner_id={campaign[0].owner_id} description={description} donations={donations} currentAmount={currentAmount} targetAmount={BigInt(targetAmount)} percentage={percentage} daysLeft={daysLeft} />
 			</div>
 		</main>
 	);
