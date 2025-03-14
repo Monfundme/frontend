@@ -28,7 +28,7 @@ const CampaignCard = ({
 				} flex flex-col shadow-xl rounded-t-xl group border-[0.5px] border-slate-200 `}>
 			<div className="h-[55%] shrink-0 relative rounded-t-xl overflow-hidden -z-10  ">
 				<Image
-					src={campaign.image}
+					src={campaign.image || "/images/placeholder.jpg"}
 					alt="camp_img"
 					className="group-hover:scale-105 transition-all duration-300 ease-in-out "
 					fill
@@ -48,7 +48,7 @@ const CampaignCard = ({
 							: campaign.title}
 					</h2>
 					{isTrending && (
-						<p className=" leading-[16px] flex-1 text-black/90">
+						<p className=" leading-[16px] mt-2 flex-1 text-black/90">
 							{campaign.description.length > 150
 								? ` ${campaign.description.slice(0, 150)} ...`
 								: campaign.description}

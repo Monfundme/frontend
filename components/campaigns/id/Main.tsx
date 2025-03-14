@@ -32,10 +32,10 @@ const Main = ({ id }: { id: string }) => {
 		currentAmount,
 		title,
 		targetAmount,
+		owner_id
 	} = campaign[0];
 
 	const percentage = getPercentage(BigInt(targetAmount), currentAmount);
-	const daysLeft = Math.floor((Number(deadline) - Date.now() / 1000) / (24 * 60 * 60));
 
 	return (
 		<main className="max-w-[1200px] mx-auto p-6">
@@ -46,7 +46,7 @@ const Main = ({ id }: { id: string }) => {
 				<LeftSection image={image} description={description} owner_id={campaign[0].owner_id} donations={donations} />
 
 				{/* Right Column */}
-				<RightSection id={id} owner_id={campaign[0].owner_id} description={description} donations={donations} currentAmount={currentAmount} targetAmount={BigInt(targetAmount)} percentage={percentage} daysLeft={daysLeft} />
+				<RightSection id={id} owner_id={campaign[0].owner_id} description={description} donations={donations} currentAmount={currentAmount} targetAmount={BigInt(targetAmount)} percentage={percentage} deadline={deadline} ownerId={owner_id} />
 			</div>
 		</main>
 	);

@@ -1,3 +1,4 @@
+import { AlertTriangle } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -36,6 +37,11 @@ export default function Page() {
                 Empower change, one campaign at a time. Track your impact, manage your
                 campaigns, and stay <br /> connected with the causes you care about😊
             </p>
+
+            <div className="mt-5 text-red-500 text-sm flex gap-2 items-center">
+                <AlertTriangle className="size-4" />
+                <p>Stale data, for now! due to time constraint we would do a more structured analysis after the hackathon!</p>
+            </div>
 
             <div className="mt-5 grid grid-cols-12 items-start gap-x-4 gap-y-[35px]">
                 <div className="col-span-8 flex flex-col ">
