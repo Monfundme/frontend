@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_CAMPAIGNS = gql`
  query Campaigns {
-  Campaign(order_by: {createdAt: desc}) {
+  Campaign(where: {isActive: {_eq: true}}, order_by: {createdAt: desc}) {
     id
     closedAt
     completedAt
@@ -56,20 +56,30 @@ export const GET_CAMPAIGN_BY_ID = gql`
 }
 `;
 
-// export const GET_ACCOUNT = gql`
-//    query GetAccount($accountId: String!) {
-//      Account(where: {id: {_eq: $accountId}}) {
-//     id
-//     donations {
-//       amount
-//       campaign_id
-//       id
-//       timestamp
-//       campaign{ 
-//       	description
-//         title
-//         targetAmount
-//       }
-//     }
-//   }
-// `;
+export const GET_ACCOUNT = gql`
+  query GetAccount($id: String!) {
+   Account(where: {id: {_eq: $id}}) {
+    id
+    campaignsOwned {
+      id
+      image
+      isActive
+      isClosed
+      isCompleted
+      title
+      targetAmount
+      targetReachedAt
+      currentAmount
+      deadline
+    }
+    donations {
+      amount
+      timestamp
+      id
+      campaign {
+        title
+      }
+    }
+   }
+}
+`;

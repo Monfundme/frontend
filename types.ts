@@ -29,6 +29,16 @@ export interface Donation {
 	timestamp?: string;
 }
 
+export interface DonationLog {
+	amount: bigint;
+	campaign: {
+		title: string;
+	};
+	id: string;
+	timestamp: string;
+	transactionHash: string;
+}
+
 export interface Campaign extends CampaignInput {
 	owner_id: string;
 	currentAmount: bigint;
@@ -65,6 +75,14 @@ export interface PendingCampaign {
 	createdAt: Timestamp;
 	queuedAt: Timestamp;
 	updatedAt: Timestamp;
+}
+
+export interface QueingCampaign {
+	id: string;
+	proposalId: string;
+	title: string;
+	description: string;
+	deadline: number
 }
 
 export interface ContextType {

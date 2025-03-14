@@ -1,3 +1,4 @@
+import { sliceAddress } from "@/utils/helpers";
 import { User, XCircle } from "lucide-react";
 
 export default function Votes() {
@@ -19,13 +20,13 @@ export default function Votes() {
                 </thead>
 
                 <tbody>
-                    {[1, 2, 3, 4, 5].map((transaction, index) => (
+                    {["votes"].map((transaction, index) => (
                         <tr key={index} className="">
                             <td className="px-6 py-4 flex items-center gap-2  ">
                                 <div className="bg-[#8E35FD] p-1 rounded-full ">
                                     <User className="text-white  size-[16] " />
                                 </div>
-                                {"0x1234567890123456789012345678901234567890".slice(0, 6)}...{"0x1234567890123456789012345678901234567890".slice(-4)}
+                                {sliceAddress("0x1234567890123456789012345678901234567890")}
                             </td>
                             <td className="px-6 py-4 text-sm font-inter">
                                 09:32 AM

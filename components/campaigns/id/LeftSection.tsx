@@ -1,4 +1,5 @@
 import { Donation } from "@/types";
+import { sliceAddress } from "@/utils/helpers";
 import { User } from "lucide-react";
 import { formatEther } from "viem";
 
@@ -48,7 +49,7 @@ const LeftSection = ({ image, description, owner_id, donations }: { image: strin
                                 <User className="size-4" />
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-accent-default">{`${donation.donator_id.slice(0, 4)}...${donation.donator_id.slice(-6)}`}</p>
+                                <p className="text-sm font-medium text-accent-default">{sliceAddress(donation.donator_id)}</p>
                                 <p className="text-xs text-gray-600">Donated {formatEther(donation.amount)} MON </p>
                             </div>
                         </div>

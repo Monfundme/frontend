@@ -5,6 +5,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import MonfundmeLogo from "./MonfundmeLogo";
+import { sliceAddress } from "@/utils/helpers";
 
 const Nav = () => {
 	const { openConnectModal } = useConnectModal();
@@ -39,7 +40,7 @@ const Nav = () => {
 					onClick={isConnected ? handleDisconnect : handleConnect}
 					className=" hover:scale-105 bg-accent-default text-white  ease-linear duration-150 transition-all border-2 px-4 py-2 border-accent-default rounded-lg font-bold ">
 					{isConnected
-						? `${address?.slice(0, 4)}...${address?.slice(-6)}`
+						? ` Profile | ${sliceAddress(address as `0x${string}`)}`
 						: "connect wallet"}
 				</button>
 			</main>

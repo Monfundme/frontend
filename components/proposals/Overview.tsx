@@ -1,10 +1,14 @@
 import { Share2, User } from "lucide-react";
+import { getDaysAgo, sliceAddress, timeLeftForMidnight } from "@/utils/helpers";
 
-export default function Overview() {
+export default function Overview({ proposal }: { proposal: any }) {
+
+    const daysAgo = getDaysAgo(proposal?.createdAt._seconds);
+
     return (
         <div className="bg-white rounded-2xl p-6 shadow-sm">
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold">Raise for the LA wildfire victims</h2>
+                <h2 className="text-2xl font-bold">{proposal?.title}</h2>
                 <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
                     Active
                 </span>
@@ -17,9 +21,9 @@ export default function Overview() {
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
-                            <span className="font-medium ">{"0x1234567890123456789012345678901234567890".slice(0, 4)}...{"0x1234567890123456789012345678901234567890".slice(-4)}</span>
+                            <span className="font-medium ">{sliceAddress(proposal?.campaignOwner)}</span>
                         </div>
-                        <p className="text-sm text-gray-500">On Monfundme • 5 days ago </p>
+                        <p className="text-sm text-gray-500">Created • {daysAgo} </p>
                     </div>
                 </div>
                 <button className="flex items-center gap-2 text-gray-600">
@@ -29,21 +33,16 @@ export default function Overview() {
 
             <div className="space-y-6">
                 <div>
-                    <h3 className="font-semibold mb-2">Authour: Nono (from MonFundMe platform)</h3>
-                    <h3 className="font-semibold mb-4">Date: 08/03/2025</h3>
-                </div>
-
-                <div>
                     <h3 className="font-semibold mb-4">Campaign summary</h3>
                     <p className="text-gray-600 leading-relaxed">
-                        Thousands of families have lost their homes, belongings, and sense of security due to the devastating LA wildfires. By supporting this campaign, you&apos;re helping provide emergency aid, shelter, and resources to those in need. Every vote and contribution brings them one step closer to recovery and rebuilding their lives. The impact of the LA wildfires is devastating, but we have the power to make a difference. Your vote can help raise awareness, mobilise support, and fund life-saving aid for displaced families. Every vote and donation matters—join us in bringing relief, recovery, and a fresh start to those affected.
+                        {proposal?.description}
                     </p>
                 </div>
 
                 <div className="flex items-center gap-4 text-sm text-gray-600">
-                    <span>10 votes</span>
+                    <span>{proposal?.votes?.length ? proposal.votes.length : 0} votes</span>
                     <span>•</span>
-                    <span>5hr left</span>
+                    <span>{timeLeftForMidnight()}</span>
                 </div>
             </div>
         </div>

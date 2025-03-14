@@ -2,7 +2,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink, ApolloProvider } from '@apollo/client';
 
 const httpLink = createHttpLink({
-    uri: 'https://indexer.dev.hyperindex.xyz/71f8f0f/v1/graphql',
+    uri: "https://indexer.dev.hyperindex.xyz/93d64af/v1/graphql",
 });
 
 export const client = new ApolloClient({
